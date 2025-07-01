@@ -9,7 +9,7 @@ using namespace std;
 
 // Punto 1:
 int carica(lista& pi) {
-    ifstream file("/PI.txt");
+    ifstream file("PI.txt");
     if (!file) {
         cout << "Errore apertura file PI.txt" << endl;
         return 0;

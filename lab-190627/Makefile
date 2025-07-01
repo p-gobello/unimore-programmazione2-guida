@@ -1,13 +1,13 @@
 CC = g++
 CFLAGS = -Wall -g
 
-all: main
+all: compito
 
-main: main.o grafo.o liste.o
-	$(CC) $(CFLAGS) -o main main.o grafo.o liste.o
+compito: compito.o grafo.o liste.o tipo.o
+	$(CC) $(CFLAGS) -o compito compito.o grafo.o liste.o tipo.o
 
-main.o: main.cc grafo.h liste.h tipo.h
-	$(CC) $(CFLAGS) -c main.cc
+compito.o: compito.cc grafo.h liste.h tipo.h
+	$(CC) $(CFLAGS) -c compito.cc
 
 grafo.o: grafo.cc grafo.h tipo.h
 	$(CC) $(CFLAGS) -c grafo.cc
@@ -15,5 +15,8 @@ grafo.o: grafo.cc grafo.h tipo.h
 liste.o: liste.cc liste.h tipo.h
 	$(CC) $(CFLAGS) -c liste.cc
 
+tipo.o: tipo.cc tipo.h
+	$(CC) $(CFLAGS) -c tipo.cc
+
 clean:
-	rm -f *.o main
+	rm -f *.o compito
