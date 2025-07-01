@@ -1,343 +1,348 @@
-# Programming 2 Laboratory - Complete Analysis and Reference Guide
+# Laboratorio di Programmazione 2 - Guida Completa di Analisi e Riferimento
 
-## Overview
-This repository contains comprehensive analyses of 8 programming laboratory exercises focused on fundamental data structures and algorithms. Each lab demonstrates practical applications of core computer science concepts through real-world scenarios.
+## Attenzione
+Le soluzioni sono state generate tramite AI. Sono stati utilizzati Claude-4-Sonnet e Gemini-2.5-Pro.
 
-## Repository Structure
+## Panoramica
+Questa repository contiene analisi complete di 8 esercitazioni di laboratorio di programmazione incentrate su strutture dati e algoritmi fondamentali. Ogni laboratorio dimostra applicazioni pratiche di concetti di base dell'informatica attraverso scenari del mondo reale.
+
+## Struttura della Repository
 ```
-prove-lab-claude/
-├── lab-180618/     # Binary Search Tree (BST) with Cards
-├── lab-180719/     # Queue and Graph Implementation
-├── lab-180911/     # Doubly Linked Lists with Inverted Index
-├── lab-190205/     # Card Management with Doubly Linked Lists
-├── lab-190627/     # Graph with Points of Interest + Lists
-├── lab-210917/     # Calendar/Agenda Management
-├── lab-220721/     # Multi-Player Card Game System
-├── lab-240703/     # Hotel Management with BST
-└── README.md       # This overview file
+/
+├── lab-180618/     # Albero Binario di Ricerca (BST) con le Carte
+├── lab-180719/     # Implementazione di Coda e Grafo
+├── lab-180911/     # Liste Doppiamente Concatenate con Indice Invertito
+├── lab-190205/     # Gestione di Carte con Liste Doppiamente Concatenate
+├── lab-190627/     # Grafo con Punti di Interesse + Liste
+├── lab-210917/     # Gestione Calendario/Agenda
+├── lab-220721/     # Sistema di Gioco di Carte Multi-giocatore
+├── lab-240703/     # Gestione Alberghiera con BST
+└── README.md       # Questo file di panoramica
 ```
 
-## Lab Summaries
+## Riepilogo dei Laboratori
 
-### Lab 180618 - Binary Search Tree Fundamentals
-**Core Focus**: BST implementation with playing cards
+### Lab 180618 - Fondamenti degli Alberi Binari di Ricerca
+**Focus Principale**: Implementazione di BST con carte da gioco
 
-**Key Data Structures**:
-- Binary Search Tree with parent pointers
-- Card structure (suit + value)
+**Strutture Dati Chiave**:
+- Albero Binario di Ricerca con puntatori al genitore
+- Struttura `carta` (seme + valore)
 
-**Essential Functions**:
-- `bst_insert()` - Maintains BST property during insertion
-- `bst_search()` - Efficient O(log n) search operations
-- `bst_delete()` - Complex deletion with three cases (leaf, one child, two children)
+**Funzioni Essenziali**:
+- `bst_insert()` - Mantiene la proprietà del BST durante l'inserimento
+- `bst_search()` - Operazioni di ricerca efficienti in O(log n)
+- `bst_delete()` - Cancellazione complessa con tre casi (foglia, un figlio, due figli)
 
-**Learning Objectives**:
-- Tree traversal algorithms
-- BST property maintenance
-- Pointer manipulation in tree structures
-- Memory management with dynamic allocation
+**Obiettivi di Apprendimento**:
+- Algoritmi di attraversamento degli alberi
+- Mantenimento della proprietà del BST
+- Manipolazione dei puntatori nelle strutture ad albero
+- Gestione della memoria con allocazione dinamica
 
-### Lab 180719 - Queue and Graph Fundamentals
-**Core Focus**: FIFO queue implementation + graph adjacency lists
+### Lab 180719 - Fondamenti di Code e Grafi
+**Focus Principale**: Implementazione di una coda FIFO + liste di adiacenza per grafi
 
-**Key Data Structures**:
-- Queue with head/tail pointers for O(1) operations
-- Graph using adjacency lists for space efficiency
-- Weighted edges for realistic graph applications
+**Strutture Dati Chiave**:
+- Coda con puntatori a testa/coda per operazioni in O(1)
+- Grafo che utilizza liste di adiacenza per efficienza spaziale
+- Archi pesati per applicazioni realistiche dei grafi
 
-**Essential Functions**:
-- `enqueue()`/`dequeue()` - FIFO queue operations
-- `add_arc()`/`add_edge()` - Graph construction
-- Graph traversal accessors
+**Funzioni Essenziali**:
+- `enqueue()`/`dequeue()` - Operazioni su coda FIFO
+- `add_arc()`/`add_edge()` - Costruzione del grafo
+- Accessori per l'attraversamento del grafo
 
-**Learning Objectives**:
-- Queue applications (BFS, task scheduling)
-- Graph representation strategies
-- Space-efficient adjacency lists vs. matrices
-- Weighted graph concepts
+**Obiettivi di Apprendimento**:
+- Applicazioni delle code (BFS, scheduling di task)
+- Strategie di rappresentazione dei grafi
+- Liste di adiacenza efficienti in termini di spazio vs. matrici
+- Concetti di grafo pesato
 
-### Lab 180911 - Advanced Linked Lists and Information Retrieval
-**Core Focus**: Doubly linked lists with document indexing
+### Lab 180911 - Liste Concatenate Avanzate e Recupero dell'Informazione
+**Focus Principale**: Liste doppiamente concatenate con indicizzazione di documenti
 
-**Key Data Structures**:
-- Doubly linked lists with prev/next pointers
-- Word structure for inverted index
-- Document-word mapping system
+**Strutture Dati Chiave**:
+- Liste doppiamente concatenate con puntatori `prev`/`next`
+- Struttura `parola` per l'indice invertito
+- Sistema di mappatura documento-parola
 
-**Essential Functions**:
-- `ord_insert_elem()` - Maintains sorted order
-- `ord_search()` - Optimized search with early termination
-- Bidirectional list traversal
+**Funzioni Essenziali**:
+- `ord_insert_elem()` - Mantiene l'ordine di inserimento
+- `ord_search()` - Ricerca ottimizzata con terminazione anticipata
+- Attraversamento bidirezionale della lista
 
-**Learning Objectives**:
-- Information retrieval concepts
-- Inverted index data structures
-- Ordered vs. unordered data management
-- Search optimization techniques
+**Obiettivi di Apprendimento**:
+- Concetti di recupero dell'informazione
+- Strutture dati a indice invertito
+- Gestione di dati ordinati vs. non ordinati
+- Tecniche di ottimizzazione della ricerca
 
-### Lab 190205 - Specialized Card Game Implementation
-**Core Focus**: Playing card management with type-safe operations
+### Lab 190205 - Implementazione di un Gioco di Carte Specializzato
+**Focus Principale**: Gestione di carte da gioco con operazioni type-safe
 
-**Key Data Structures**:
-- Card structure with suit and value
-- Doubly linked lists for hand management
+**Strutture Dati Chiave**:
+- Struttura `carta` con seme e valore
+- Liste doppiamente concatenate per la gestione della mano
 
-**Essential Functions**:
-- Card comparison strategies (by suit, by value)
-- Card validation and duplicate detection
-- Hand organization algorithms
+**Funzioni Essenziali**:
+- Strategie di confronto delle carte (per seme, per valore)
+- Validazione delle carte e rilevamento di duplicati
+- Algoritmi di organizzazione della mano
 
-**Learning Objectives**:
-- Domain-specific data modeling
-- Type safety in data structures
-- Game rule implementation
-- Data validation strategies
+**Obiettivi di Apprendimento**:
+- Modellazione di dati specifici del dominio
+- Sicurezza dei tipi nelle strutture dati
+- Implementazione delle regole di gioco
+- Strategie di validazione dei dati
 
-### Lab 190627 - Geographic Information Systems
-**Core Focus**: City navigation with points of interest
+### Lab 190627 - Sistemi Informativi Geografici
+**Focus Principale**: Navigazione in città con punti di interesse
 
-**Key Data Structures**:
-- Enhanced graph with weighted edges
-- Point of Interest (POI) structure with metadata
-- Combined graph + list data management
+**Strutture Dati Chiave**:
+- Grafo migliorato con archi pesati
+- Struttura Punto di Interesse (POI) con metadati
+- Gestione combinata di dati di grafo e lista
 
-**Essential Functions**:
-- POI categorization and filtering
-- Path finding between locations
-- Geographic data management
+**Funzioni Essenziali**:
+- Categorizzazione e filtraggio dei POI
+- Ricerca di percorsi tra località
+- Gestione di dati geografici
 
-**Learning Objectives**:
-- Real-world graph applications
-- Multi-attribute data structures
-- Spatial data management
-- Location-based services concepts
+**Obiettivi di Apprendimento**:
+- Applicazioni reali dei grafi
+- Strutture dati multi-attributo
+- Gestione di dati spaziali
+- Concetti di servizi basati sulla localizzazione
 
-### Lab 210917 - Temporal Data Management
-**Core Focus**: Calendar/agenda system with time-based operations
+### Lab 210917 - Gestione di Dati Temporali
+**Focus Principale**: Sistema di calendario/agenda con operazioni basate sul tempo
 
-**Key Data Structures**:
-- Appointment structure (date, start time, end time, description)
-- Chronologically ordered lists
+**Strutture Dati Chiave**:
+- Struttura `appuntamento` (data, ora di inizio, ora di fine, descrizione)
+- Liste ordinate cronologicamente
 
-**Essential Functions**:
-- Time conflict detection
-- Chronological insertion
-- Temporal data validation
+**Funzioni Essenziali**:
+- Rilevamento di conflitti temporali
+- Inserimento cronologico
+- Validazione di dati temporali
 
-**Learning Objectives**:
-- Time-based data structures
-- Conflict detection algorithms
-- Scheduling system design
-- Temporal data validation
+**Obiettivi di Apprendimento**:
+- Strutture dati basate sul tempo
+- Algoritmi di rilevamento dei conflitti
+- Progettazione di sistemi di scheduling
+- Validazione di dati temporali
 
-### Lab 220721 - Multi-Player Game Systems
-**Core Focus**: Managing multiple card hands with game state
+### Lab 220721 - Sistemi di Gioco Multi-giocatore
+**Focus Principale**: Gestione di più mani di carte con stato di gioco
 
-**Key Data Structures**:
-- Multiple independent card lists
-- Game state management
-- Player hand validation
+**Strutture Dati Chiave**:
+- Liste di carte multiple e indipendenti
+- Gestione dello stato di gioco
+- Validazione della mano del giocatore
 
-**Essential Functions**:
-- Multi-hand card distribution
-- Duplicate detection across collections
-- Game state synchronization
+**Funzioni Essenziali**:
+- Distribuzione di carte a più mani
+- Rilevamento di duplicati tra collezioni
+- Sincronizzazione dello stato di gioco
 
-**Learning Objectives**:
-- Multi-collection data management
-- Game state design patterns
-- Data integrity across collections
-- Comparative data analysis
+**Obiettivi di Apprendimento**:
+- Gestione di dati multi-collezione
+- Pattern di progettazione dello stato di gioco
+- Integrità dei dati tra collezioni
+- Analisi comparativa dei dati
 
-### Lab 240703 - Advanced BST Applications
-**Core Focus**: Hotel management system with rating-based search
+### Lab 240703 - Applicazioni Avanzate dei BST
+**Focus Principale**: Sistema di gestione alberghiera con ricerca basata sulla valutazione
 
-**Key Data Structures**:
-- BST with reverse ordering (higher ratings left)
-- Hotel information with multiple attributes
+**Strutture Dati Chiave**:
+- BST con ordinamento inverso (valutazioni più alte a sinistra)
+- Informazioni sugli hotel con attributi multipli
 
-**Essential Functions**:
-- Rating-based tree organization
-- Range queries for hotel search
-- Quality-based filtering
+**Funzioni Essenziali**:
+- Organizzazione dell'albero basata sulla valutazione
+- Query di intervallo per la ricerca di hotel
+- Filtraggio basato sulla qualità
 
-**Learning Objectives**:
-- Custom BST ordering strategies
-- Multi-criteria data in single-key structures
-- Business application design
-- Search optimization for specific domains
+**Obiettivi di Apprendimento**:
+- Strategie di ordinamento personalizzate per i BST
+- Dati multi-criterio in strutture a chiave singola
+- Progettazione di applicazioni aziendali
+- Ottimizzazione della ricerca per domini specifici
 
-## Core Computer Science Concepts Covered
+## Concetti Fondamentali di Informatica Trattati
 
-### Data Structures Mastery
+### Padronanza delle Strutture Dati
 
-#### 1. **Linear Data Structures**
-- **Linked Lists**: Single, doubly-linked with various applications
-- **Queues**: FIFO implementation with efficient operations
-- **Applications**: Task scheduling, BFS, buffer management
+#### 1. **Strutture Dati Lineari**
+- **Liste Concatenate**: Singole, doppiamente concatenate con varie applicazioni
+- **Code**: Implementazione FIFO con operazioni efficienti
+- **Applicazioni**: Scheduling di task, BFS, gestione di buffer
 
-#### 2. **Tree Data Structures**
-- **Binary Search Trees**: Self-organizing, searchable trees
-- **Tree Traversals**: In-order, pre-order, post-order
-- **Applications**: Databases, file systems, expression parsing
+#### 2. **Strutture Dati ad Albero**
+- **Alberi Binari di Ricerca**: Alberi auto-organizzanti e ricercabili
+- **Attraversamenti di Alberi**: In-order, pre-order, post-order
+- **Applicazioni**: Database, file system, parsing di espressioni
 
-#### 3. **Graph Data Structures**
-- **Adjacency Lists**: Space-efficient graph representation
-- **Weighted Graphs**: Real-world applications with edge costs
-- **Applications**: Navigation, social networks, optimization
+#### 3. **Strutture Dati a Grafo**
+- **Liste di Adiacenza**: Rappresentazione efficiente in termini di spazio dei grafi
+- **Grafi Pesati**: Applicazioni reali con costi sugli archi
+- **Applicazioni**: Navigazione, social network, ottimizzazione
 
-### Algorithm Design Patterns
+### Pattern di Progettazione degli Algoritmi
 
-#### 1. **Search Algorithms**
-- **Linear Search**: O(n) baseline for unsorted data
-- **Binary Search**: O(log n) for sorted/tree structures
-- **Early Termination**: Optimization for ordered data
+#### 1. **Algoritmi di Ricerca**
+- **Ricerca Lineare**: Baseline O(n) per dati non ordinati
+- **Ricerca Binaria**: O(log n) per strutture ordinate/alberi
+- **Terminazione Anticipata**: Ottimizzazione per dati ordinati
 
-#### 2. **Insertion Algorithms**
-- **Head Insertion**: O(1) for lists and queues
-- **Ordered Insertion**: O(n) maintaining sorted property
-- **Tree Insertion**: O(log n) average for balanced trees
+#### 2. **Algoritmi di Inserimento**
+- **Inserimento in Testa**: O(1) per liste e code
+- **Inserimento Ordinato**: O(n) mantenendo la proprietà di ordinamento
+- **Inserimento in Albero**: O(log n) in media per alberi bilanciati
 
-#### 3. **Deletion Algorithms**
-- **Simple Deletion**: O(1) with direct pointer access
-- **Tree Deletion**: Complex case handling (leaf, one child, two children)
-- **Integrity Maintenance**: Preserving data structure properties
+#### 3. **Algoritmi di Cancellazione**
+- **Cancellazione Semplice**: O(1) con accesso diretto ai puntatori
+- **Cancellazione in Albero**: Gestione di casi complessi (foglia, un figlio, due figli)
+- **Mantenimento dell'Integrità**: Conservazione delle proprietà della struttura dati
 
-### Programming Techniques
+### Tecniche di Programmazione
 
-#### 1. **Memory Management**
-- Dynamic allocation with `new`/`delete`
-- Pointer manipulation and validation
-- Memory leak prevention
+#### 1. **Gestione della Memoria**
+- Allocazione dinamica con `new`/`delete`
+- Manipolazione e validazione dei puntatori
+- Prevenzione dei memory leak
 
-#### 2. **Modular Programming**
-- Header/implementation file separation
-- Generic type systems (`tipo_inf`)
-- Interface design for reusability
+#### 2. **Programmazione Modulare**
+- Separazione tra file header e di implementazione
+- Sistemi di tipi generici (`tipo_inf`)
+- Progettazione di interfacce per la riusabilità
 
-#### 3. **Error Handling**
-- Input validation
-- Edge case management
-- Graceful failure handling
+#### 3. **Gestione degli Errori**
+- Validazione dell'input
+- Gestione dei casi limite
+- Gestione controllata dei fallimenti
 
-## Real-World Applications
+## Applicazioni nel Mondo Reale
 
-### 1. **Database Systems**
-- **BSTs**: Index structures for fast lookups
-- **B+ Trees**: Disk-based tree structures
-- **Hash Tables**: Constant-time access patterns
+### 1. **Sistemi di Database**
+- **BST**: Strutture di indicizzazione per ricerche veloci
+- **Alberi B+**: Strutture ad albero ottimizzate per il disco
+- **Tabelle Hash**: Pattern di accesso a tempo costante
 
-### 2. **Operating Systems**
-- **Queues**: Process scheduling, I/O buffers
-- **Trees**: File system organization
-- **Graphs**: Resource allocation, deadlock detection
+### 2. **Sistemi Operativi**
+- **Code**: Scheduling dei processi, buffer di I/O
+- **Alberi**: Organizzazione del file system
+- **Grafi**: Allocazione di risorse, rilevamento di deadlock
 
-### 3. **Web Applications**
-- **Graphs**: Social networks, recommendation systems
-- **Trees**: DOM structures, decision trees
-- **Lists**: Dynamic content management
+### 3. **Applicazioni Web**
+- **Grafi**: Social network, sistemi di raccomandazione
+- **Alberi**: Strutture DOM, alberi decisionali
+- **Liste**: Gestione di contenuti dinamici
 
-### 4. **Game Development**
-- **Lists**: Inventory management, player stats
-- **Trees**: Game state trees, AI decision making
-- **Graphs**: Level design, pathfinding algorithms
+### 4. **Sviluppo di Videogiochi**
+- **Liste**: Gestione dell'inventario, statistiche dei giocatori
+- **Alberi**: Alberi di stato del gioco, IA decisionale
+- **Grafi**: Progettazione dei livelli, algoritmi di pathfinding
 
-### 5. **Geographic Information Systems**
-- **Graphs**: Road networks, route planning
-- **Trees**: Spatial indexing (QuadTrees, R-Trees)
-- **Lists**: POI management, location services
+### 5. **Sistemi Informativi Geografici**
+- **Grafi**: Reti stradali, pianificazione di percorsi
+- **Alberi**: Indicizzazione spaziale (QuadTree, R-Tree)
+- **Liste**: Gestione di POI, servizi di localizzazione
 
-## Study Guide for Exam Preparation
+## Guida allo Studio per la Preparazione all'Esame
 
-### Essential Algorithms to Master
+### Algoritmi Essenziali da Padroneggiare
 
-#### 1. **Tree Operations**
+#### 1. **Operazioni sugli Alberi**
 ```cpp
-// BST Search Pattern
+// Pattern di ricerca in un BST
 while (node != NULL) {
     if (target == node->key) return node;
     node = (target < node->key) ? node->left : node->right;
 }
 ```
 
-#### 2. **List Manipulation**
+#### 2. **Manipolazione delle Liste**
 ```cpp
-// Doubly-linked insertion pattern
+// Pattern di inserimento in una lista doppiamente concatenata
 new_node->next = current->next;
 if (current->next != NULL) current->next->prev = new_node;
 current->next = new_node;
 new_node->prev = current;
 ```
 
-#### 3. **Queue Operations**
+#### 3. **Operazioni sulle Code**
 ```cpp
-// Efficient enqueue/dequeue
+// Enqueue/dequeue efficienti
 enqueue: tail->next = new_node; tail = new_node;
 dequeue: temp = head; head = head->next; delete temp;
 ```
 
-### Problem-Solving Strategies
+### Strategie di Risoluzione dei Problemi
 
-#### 1. **Data Structure Selection**
-- **Need fast search?** → Use BST or hash table
-- **Need ordering?** → Use ordered lists or BST
-- **Need FIFO/LIFO?** → Use queue/stack
-- **Need relationships?** → Use graphs
+#### 1. **Selezione della Struttura Dati**
+- **Necessità di ricerca veloce?** → Usa BST o tabella hash
+- **Necessità di ordinamento?** → Usa liste ordinate o BST
+- **Necessità di FIFO/LIFO?** → Usa coda/stack
+- **Necessità di relazioni?** → Usa grafi
 
-#### 2. **Algorithm Optimization**
-- **Early termination** in search algorithms
-- **Amortized analysis** for frequent operations
-- **Space-time tradeoffs** based on requirements
+#### 2. **Ottimizzazione degli Algoritmi**
+- **Terminazione anticipata** negli algoritmi di ricerca
+- **Analisi ammortizzata** per operazioni frequenti
+- **Compromessi spazio-tempo** in base ai requisiti
 
-#### 3. **Common Pitfalls**
-- **Pointer management**: Always update bidirectional links
-- **Memory leaks**: Match every `new` with `delete`
-- **Edge cases**: Empty structures, single elements
-- **Data integrity**: Maintain invariants during operations
+#### 3. **Errori Comuni**
+- **Gestione dei puntatori**: Aggiorna sempre i link bidirezionali
+- **Memory leak**: Associa ogni `new` a un `delete`
+- **Casi limite**: Strutture vuote, elementi singoli
+- **Integrità dei dati**: Mantieni gli invarianti durante le operazioni
 
-### Practice Problems
+### Problemi di Esercitazione
 
-#### 1. **Implementation Challenges**
-- Implement BST with iterative (not recursive) operations
-- Create a queue using two stacks
-- Design a graph with both adjacency list and matrix representations
+#### 1. **Sfide di Implementazione**
+- Implementa un BST con operazioni iterative (non ricorsive)
+- Crea una coda usando due stack
+- Progetta un grafo con rappresentazioni sia a lista di adiacenza che a matrice
 
-#### 2. **Application Design**
-- Design a file system using trees
-- Implement a simple scheduling system with priorities
-- Create a social network graph with friendship relationships
+#### 2. **Progettazione di Applicazioni**
+- Progetta un file system usando alberi
+- Implementa un semplice sistema di scheduling con priorità
+- Crea un grafo di social network con relazioni di amicizia
 
-#### 3. **Algorithm Analysis**
-- Compare time/space complexity of different implementations
-- Analyze worst-case vs. average-case performance
-- Design test cases for edge conditions
+#### 3. **Analisi degli Algoritmi**
+- Confronta la complessità temporale/spaziale di diverse implementazioni
+- Analizza le prestazioni nel caso peggiore vs. caso medio
+- Progetta casi di test per le condizioni limite
 
-## Advanced Topics for Further Study
+## Argomenti Avanzati per Ulteriori Studi
 
-### 1. **Self-Balancing Trees**
-- AVL Trees (height-balanced)
-- Red-Black Trees (color-balanced)
-- B-Trees (disk-optimized)
+### 1. **Alberi Auto-bilancianti**
+- Alberi AVL (bilanciati in altezza)
+- Alberi Rosso-Neri (bilanciati per colore)
+- Alberi B (ottimizzati per il disco)
 
-### 2. **Advanced Graph Algorithms**
-- Dijkstra's shortest path
-- Minimum spanning trees (Prim's, Kruskal's)
-- Topological sorting
+### 2. **Algoritmi su Grafi Avanzati**
+- Algoritmo di Dijkstra per il percorso minimo
+- Alberi di copertura minima (Prim, Kruskal)
+- Ordinamento topologico
 
-### 3. **Hash-Based Structures**
-- Hash tables with collision resolution
-- Bloom filters for membership testing
-- Consistent hashing for distributed systems
+### 3. **Strutture Basate su Hash**
+- Tabelle hash con risoluzione delle collisioni
+- Filtri di Bloom per test di appartenenza
+- Hashing consistente per sistemi distribuiti
 
-### 4. **Concurrent Data Structures**
-- Thread-safe implementations
-- Lock-free data structures
-- Parallel algorithms
+### 4. **Strutture Dati Concorrenti**
+- Implementazioni thread-safe
+- Strutture dati lock-free
+- Algoritmi paralleli
 
-## Conclusion
+## Conclusione
 
-This laboratory series provides a comprehensive foundation in data structures and algorithms through practical, real-world applications. The progression from basic linked lists to complex multi-structure systems demonstrates the evolution of problem-solving skills essential for software development.
+Questa serie di laboratori fornisce una base completa su strutture dati e algoritmi attraverso applicazioni pratiche e reali. La progressione da semplici liste concatenate a complessi sistemi multi-struttura dimostra l'evoluzione delle capacità di risoluzione dei problemi essenziali per lo sviluppo del software.
 
-Each lab builds upon previous concepts while introducing new challenges, creating a scaffolded learning experience that prepares students for advanced computer science topics and professional software development.
+Ogni laboratorio si basa sui concetti precedenti introducendo nuove sfide, creando un'esperienza di apprendimento strutturata che prepara gli studenti ad argomenti avanzati di informatica e allo sviluppo professionale di software.
 
-The emphasis on practical applications—from card games to hotel management systems—illustrates how fundamental data structures solve real-world problems, making abstract concepts concrete and memorable for long-term retention and application.
+L'enfasi sulle applicazioni pratiche—dai giochi di carte ai sistemi di gestione alberghiera—illustra come le strutture dati fondamentali risolvono problemi del mondo reale, rendendo i concetti astratti concreti e memorabili per la ritenzione e l'applicazione a lungo termine.
+
+## gang
