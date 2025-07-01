@@ -1232,5 +1232,3 @@ make clean-doc    # Remove documentation
 3. **Add assertions** to check preconditions
 4. **Test with small examples** first
 5. **Draw data structures** on paper
-
-This comprehensive guide covers all the essential C++ programming concepts for data structures and algorithms you'll need for your exams and projects!
