@@ -20,6 +20,25 @@ Questa repository contiene analisi complete di 8 esercitazioni di laboratorio di
 └── README.md       # Questo file di panoramica
 ```
 
+## Riferimenti ai File
+
+### Guide Complete
+- [Guida Completa (Italiano)](COMPLETE_GUIDE.it.md)
+- [Complete Guide (English)](COMPLETE_GUIDE.en.md)
+- [Guida  GIT (Italiano)](GIT_GUIDE.it.md)
+- [GIT Guide (English)](GIT_GUIDE.en.md)
+
+### README dei Laboratori
+Ogni laboratorio ha il suo file `README.md` con dettagli specifici sull'esercitazione.
+- [Lab 180618](./lab-180618/README.md)
+- [Lab 180719](./lab-180719/README.md)
+- [Lab 180911](./lab-180911/README.md)
+- [Lab 190205](./lab-190205/README.md)
+- [Lab 190627](./lab-190627/README.md)
+- [Lab 210917](./lab-210917/README.md)
+- [Lab 220721](./lab-220721/README.md)
+- [Lab 240703](./lab-240703/README.md)
+
 ## Riepilogo dei Laboratori
 
 ### Lab 180618 - Fondamenti degli Alberi Binari di Ricerca
