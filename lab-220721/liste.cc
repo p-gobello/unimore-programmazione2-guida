@@ -68,6 +68,20 @@ lista delete_elem(lista l, elem* e){
 		return l;
 }
 
+lista ord_insert_elem(lista l, elem* e){
+	if(l==NULL || compare(head(l), head(e)) > 0)
+		return insert_elem(l, e);
+	lista l1 = l;
+	while(tail(l1)!=NULL && compare(head(tail(l1)), head(e)) < 0)
+		l1 = tail(l1);
+	e->pun = tail(l1);
+	if(tail(l1)!=NULL)
+		tail(l1)->prev = e;
+	l1->pun = e;
+	e->prev = l1;
+	return l;
+}
+
 
 
 

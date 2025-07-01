@@ -36,18 +36,17 @@ int* tris(lista carte){
     int* t = new int[13];
     for(int i=0; i<13; i++)
         t[i] = 0;
-    elem* e = carte;
-    while(e != NULL){
+    
+    for(int i=1; i<=13; i++){
         int count = 0;
-        elem* f = carte;
-        while(f != NULL){
-            if(head(e).numero == head(f).numero)
+        elem* e = carte;
+        while(e != NULL){
+            if(head(e).numero == i)
                 count++;
-            f = tail(f);
+            e = tail(e);
         }
         if(count >= 3)
-            t[head(e).numero-1]++;
-        e = tail(e);
+            t[i-1] = count / 3;
     }
     return t;
 }
