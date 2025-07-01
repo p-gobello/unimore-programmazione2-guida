@@ -4,12 +4,12 @@
  *  Created on: 14 mag 2018
  *      Author: federica
  */
+#include <cstddef>
 #include <iostream>
 using namespace std;
-
 #include <cstring>
 
-#include "tipo.h"
+#include "carta.h"
 #include "bst.h"
 
 static tipo_key copy_key(tipo_key& s,tipo_key s1){
@@ -128,7 +128,7 @@ void bst_delete(bst& b, bnode* n){
 			    // sostituisco app a n
 			    app->left = get_left(n);
 			    app->right = get_right(n);
-			    if(get_right(app)!=NULL)
+			    if(get_left(app)!=NULL)
 			    	(app->right)->parent = app;
 			    if(get_left(app)!=NULL)
 			    	(app->left)->parent = app;

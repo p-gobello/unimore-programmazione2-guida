@@ -1,19 +1,20 @@
-CXX = g++
-CXXFLAGS = -Wall -std=c++11
+CC=g++
+CFLAGS=-Wall -c -g
+LFLAGS=-Wall -g
 
-TARGET = test_bst
-SOURCES = compito.cc bst.cc tipo.cc
-OBJECTS = $(SOURCES:.cc=.o)
+all: programma
 
-.PHONY: all clean
+programma: compito.o bst.o carta.o
+	$(CC) $(LFLAGS) compito.o bst.o carta.o -o programma
 
-all: $(TARGET)
+compito.o: compito.cc bst.h carta.h
+	$(CC) $(CFLAGS) compito.cc
 
-$(TARGET): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJECTS)
+bst.o: bst.cc bst.h carta.h
+	$(CC) $(CFLAGS) bst.cc
 
-%.o: %.cc
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+carta.o: carta.cc carta.h
+	$(CC) $(CFLAGS) carta.cc
 
 clean:
-	rm -f $(OBJECTS) $(TARGET)
+	rm -f *.o programma 
