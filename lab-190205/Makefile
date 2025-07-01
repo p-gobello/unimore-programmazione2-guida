@@ -1,19 +1,21 @@
-CC = g++
-CFLAGS = -Wall -g
-OBJS = main.o liste.o tipo.o
-TARGET = demazziere
+CXX=g++
+CXXFLAGS=-Wall -c 
+LDFLAGS=
+OBJS= compito.o tipo.o liste.o
+EXEC=gioco
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+$(EXEC): $(OBJS)
+	$(CXX) $(LDFLAGS) -o $(EXEC) $(OBJS)
 
-main.o: main.cc tipo.h liste.h
-	$(CC) $(CFLAGS) -c main.cc
-
-liste.o: liste.cc liste.h tipo.h
-	$(CC) $(CFLAGS) -c liste.cc
+compito.o: compito.cc tipo.h liste.h
+	$(CXX) $(CXXFLAGS) compito.cc
 
 tipo.o: tipo.cc tipo.h
-	$(CC) $(CFLAGS) -c tipo.cc
+	$(CXX) $(CXXFLAGS) tipo.cc
 
+liste.o: liste.cc liste.h tipo.h
+	$(CXX) $(CXXFLAGS) liste.cc
+
+.PHONY: clean
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f *.o $(EXEC)
