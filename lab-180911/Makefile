@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++11
 TARGET = programa
-SOURCES = main.cc liste.cc tipo.cc
+SOURCES = compito.cc liste.cc tipo.cc
 OBJECTS = $(SOURCES:.cc=.o)
 
 $(TARGET): $(OBJECTS)

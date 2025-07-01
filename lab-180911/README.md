@@ -1,235 +1,123 @@
-# Lab 180911 - Doubly Linked Lists Management Program
+# Lab 180911 - Inverted Index Management System
 
 ## Overview
-This lab implements a complete doubly-linked lists management program with a menu-driven interface. The program allows users to create, manipulate, search, and manage doubly-linked lists of integers with both ordered and unordered variants.
+This program implements a small-scale inverted index system for document retrieval. An inverted index is a data structure used to accelerate word searches in a collection of documents. It maps each word to a list of document identifiers (posting list) in which the word appears.
+
+The system can load an initial index from a file, update it with new documents, and perform search queries.
 
 ## Data Structures
 
-### Doubly Linked List Node (`elem`)
-```cpp
-struct elem {
-    tipo_inf inf;    // Data stored (int in this case)
-    elem* pun;       // Pointer to next element (tail)
-    elem* prev;      // Pointer to previous element
-};
-```
-
-### Word Structure (`parola`)
+### Word (`parola`)
+The core data structure represents a word in the index:
 ```cpp
 struct parola {
-    char p[80];      // Word string (up to 80 characters)
-    int n_doc;       // Number of documents containing this word
-    lista l;         // List of document IDs containing this word
+    char p[80];      // The word itself (up to 80 characters)
+    int n_doc;       // The total number of documents containing the word
+    lista l;         // A doubly-linked list (posting list) of document IDs
 };
 ```
+The inverted index is stored as a dynamic array of `parola` structs.
 
-### Type Definition
-- `typedef elem* lista` - List represented as pointer to first element
-- `typedef int tipo_inf` - Information type is integer
+### Type Definitions
+- `typedef elem* lista`: A doubly-linked list, used for the posting lists.
+- `typedef int tipo_inf`: The type for document IDs (integers).
 
 ## Implemented Functions
 
-### Core List Operations
+The main logic is contained in `compito.cc`.
 
-1. **`elem* new_elem(tipo_inf inf)`**
-   - Creates a new list element with given information
-   - Initializes both pointers (pun, prev) to NULL
-   - Uses `copy()` function for proper data assignment
+1.  **`parola* load(int& n)`**
+    -   Loads an inverted index from a file named `inverted`.
+    -   The file format expected is:
+        1.  Number of unique words.
+        2.  For each word: the word, the count of documents it's in, and the list of document IDs.
+    -   Returns a dynamically allocated array of `parola` structs.
 
-2. **`lista insert_elem(lista l, elem* e)`**
-   - Inserts element at the head of the list
-   - Updates bidirectional links properly
-   - Returns new head of the list
-   - **Time Complexity**: O(1)
+2.  **`void stampa(parola* ii, int n)`**
+    -   Prints the entire inverted index in a human-readable format, showing each word and its corresponding posting list.
 
-3. **`lista delete_elem(lista l, elem* e)`**
-   - Removes specified element from the list
-   - Handles two cases:
-     - Element is head: update list head
-     - Element is not head: update previous element's link
-   - Updates bidirectional links
-   - Frees memory of deleted element
-   - **Time Complexity**: O(1) if element pointer is known
+3.  **`void update(parola* &ii, int &size, const char* fileName)`**
+    -   Updates the inverted index with words from a new document file.
+    -   Handles two cases:
+        -   **Existing Word**: Adds the new document ID to the word's posting list (if not already present).
+        -   **New Word**: Dynamically resizes the index and adds the new word with its posting list.
 
-4. **`lista ord_insert_elem(lista l, elem* e)`**
-   - Inserts element maintaining sorted order
-   - Finds correct position by comparing values
-   - Handles special cases (empty list, insert at head)
-   - Updates all necessary pointers
-   - **Time Complexity**: O(n) for finding position
+4.  **`void AND(parola* ii, int size, const char* w1, const char* w2)`**
+    -   Performs a logical AND query.
+    -   Finds the intersection of the posting lists for two words (`w1` and `w2`).
+    -   Prints the list of document IDs that contain *both* words.
 
-### Search Operations
+5.  **`int* match(parola* ii, int size, char** wl, int n, int& result_size)`**
+    -   Performs a broader match query for a list of words.
+    -   Finds all documents that contain *at least one* of the specified words.
+    -   Returns a new array of document IDs, sorted in descending order of relevance (i.e., by the number of query words they contain).
 
-5. **`elem* search(lista l, tipo_inf v)`**
-   - Linear search through entire list
-   - Returns pointer to element if found, NULL otherwise
-   - **Use case**: Unsorted lists
-   - **Time Complexity**: O(n)
+## Compilation and Execution
 
-6. **`elem* ord_search(lista l, tipo_inf v)`**
-   - Optimized search for sorted lists
-   - Stops when current value exceeds target (early termination)
-   - Returns pointer to element if found, NULL otherwise
-   - **Use case**: Sorted lists
-   - **Time Complexity**: O(n) worst case, but better average case
-
-### Accessor Functions
-
-7. **`tipo_inf head(lista p)`** - Returns data from first element
-8. **`lista tail(lista p)`** - Returns pointer to next element  
-9. **`lista prev(lista p)`** - Returns pointer to previous element
-
-### Type Operations (from `tipo.cc`)
-
-10. **`int compare(tipo_inf s1, tipo_inf s2)`**
-    - Compares two integer values
-    - Returns: negative if s1 < s2, zero if equal, positive if s1 > s2
-
-11. **`void copy(tipo_inf& dest, tipo_inf source)`**
-    - Copies source value to destination
-    - Simple assignment for integers
-
-12. **`void print(tipo_inf inf)`**
-    - Prints the integer value
-
-## Key Algorithms and Concepts
-
-### Doubly Linked List Properties
-- **Bidirectional traversal**: Can move forward and backward
-- **Efficient deletion**: O(1) when element pointer is known
-- **Memory overhead**: Extra pointer per node
-- **Cache locality**: Generally worse than arrays
-
-### Ordered vs Unordered Operations
-- **Unordered lists**: Faster insertion O(1), slower search O(n)
-- **Ordered lists**: Slower insertion O(n), potentially faster search
-
-### Inverted Index Concept
-Based on the file structure (`doc`, `inverted`, `parola.h`), this appears to implement:
-- **Document collection**: List of words in documents
-- **Inverted index**: Mapping from words to document IDs
-- **Word frequency**: Track which documents contain each word
-
-#### Sample Data Analysis
-**doc file**: Contains document 5 with words: computer, tower, voltage
-**inverted file**: Shows inverted index format:
-- 3 unique words
-- computer appears in documents 1, 2, 4
-- laptop appears in documents 1, 3  
-- tower appears in documents 1, 2, 3
-
-## General Concepts for Future Reference
-
-### When to Use Doubly Linked Lists
-- **Frequent deletions**: When you have element pointers
-- **Bidirectional traversal**: Need to move both directions
-- **Undo operations**: Stack-like behavior with backward movement
-- **LRU caches**: Need to move elements to front/back efficiently
-
-### Doubly vs Singly Linked Lists
-
-#### Advantages of Doubly Linked
-- O(1) deletion with element pointer
-- Bidirectional traversal
-- Easier implementation of some algorithms
-
-#### Disadvantages
-- Extra memory per node
-- More complex pointer management
-- Slightly slower insertion due to extra pointer updates
-
-### Search Strategy Selection
-```cpp
-// Choose search method based on list ordering
-if (list_is_sorted) {
-    result = ord_search(list, value);  // Early termination possible
-} else {
-    result = search(list, value);      // Full traversal needed
-}
-```
-
-### Ordered Insertion Strategy
-1. **Empty list or insert at head**: Direct insertion
-2. **Find position**: Traverse until finding correct spot
-3. **Insert between nodes**: Update 4 pointers carefully
-4. **Maintain ordering**: Essential for ord_search() to work
-
-### Implementation Best Practices
-
-#### Pointer Management
-1. Always update both directions in doubly linked lists
-2. Handle edge cases (empty list, single element, head/tail operations)
-3. Check for NULL pointers before dereferencing
-4. Free memory properly to avoid leaks
-
-#### Search Optimization
-- Use ord_search() only on sorted lists
-- Consider binary search for very large sorted lists
-- Cache frequently accessed elements
-- Use appropriate data structure for access pattern
-
-### Applications
-- **Text processing**: Word indexing and search
-- **Database indexing**: B+ trees use similar concepts
-- **Browser history**: Back/forward navigation
-- **Music playlists**: Previous/next song functionality
-- **Undo/Redo systems**: Bidirectional operation history
-
-### Time Complexities Summary
-- **Insert (head)**: O(1)
-- **Insert (ordered)**: O(n)
-- **Delete (with pointer)**: O(1)
-- **Search (unsorted)**: O(n)
-- **Search (sorted)**: O(n) worst case, better average
-- **Space**: O(n) with double pointer overhead
-
-This lab provides essential foundation for understanding linked data structures and their applications in information retrieval systems like search engines and databases.
-
-## Program Features
-
-The main program (`main.cc`) provides a menu-driven interface with the following options:
-
-1. **Create Unordered List**: Create a new list by inserting elements at the head
-2. **Create Ordered List**: Create a new list maintaining sorted order during insertion
-3. **Print List**: Display the current list contents and indicate if it's sorted
-4. **Search Value**: Search for a specific value using:
-   - `ord_search()` for sorted lists (optimized with early termination)
-   - `search()` for unsorted lists (full linear search)
-5. **Delete All Occurrences**: Remove all elements containing a specified value
-6. **Exit**: Terminate the program with proper memory cleanup
-
-### Compilation and Execution
+The project includes a `Makefile` for easy compilation.
 
 ```bash
-# Using provided Makefile
+# Navigate to the lab directory
+cd lab-180911
+
+# Clean previous builds and compile
 make clean && make
-./programa
 
-# Or direct compilation
-g++ -o programa main.cc liste.cc tipo.cc
+# Run the program
 ./programa
 ```
 
-### Sample Usage
+## Sample Usage and Output
+
+The program first loads the initial index, then prompts the user for a document to update the index with, and finally runs the `AND` and `match` queries.
+
+### Expected Output
 
 ```
-=== GESTIONE LISTE DOPPIE ===
-1. Crea lista non ordinata
-2. Crea lista ordinata  
-3. Stampa lista
-4. Cerca valore
-5. Cancella tutte le occorrenze di un valore
-0. Esci
-Scelta: 2
-Quanti elementi vuoi inserire? 4
-Inserisci 4 valori:
-Valore 1: 30
-Valore 2: 10
-Valore 3: 40
-Valore 4: 20
-Lista ordinata creata.
+# Initial loaded index
+Inverted Index Iniziale:
+--- Inverted Index ---
+Parola: computer
+Numero documenti: 3
+Documenti: 1 2 4 
+------------------------
+...
 
-Scelta: 3
-Lista: 10 -> 20 -> 30 -> 40
-(Lista ordinata)
+# Prompt for update file
+Inserisci il nome del file del documento da aggiungere (es. doc): doc
+
+# Index after updating with 'doc' file
+Inverted Index Aggiornato:
+--- Inverted Index ---
+Parola: computer
+Numero documenti: 4
+Documenti: 1 2 4 5 
+------------------------
+Parola: laptop
+Numero documenti: 2
+Documenti: 1 3 
+------------------------
+Parola: tower
+Numero documenti: 4
+Documenti: 1 2 3 5 
+------------------------
+Parola: voltage
+Numero documenti: 1
+Documenti: 5 
+------------------------
+
+# Prompt for AND query
+--- Ricerca AND ---
+Inserisci la prima parola: computer
+Inserisci la seconda parola: tower
+Documenti che contengono computer AND tower:
+1 2 5 
+
+# Prompt for MATCH query
+--- Ricerca MATCH ---
+Inserisci una serie di parole separate da spazio (es. computer voltage):
+computer voltage
+Risultato del match (documenti ordinati per rilevanza):
+5 1 2 4 
 ```
+This demonstrates the full functionality of the system, from data loading and updating to executing complex search queries.
