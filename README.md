@@ -42,41 +42,39 @@ Ogni laboratorio ha il suo file `README.md` con dettagli specifici sull'esercita
 ## Riepilogo dei Laboratori
 
 ### Lab 180618 - Fondamenti degli Alberi Binari di Ricerca
-**Focus Principale**: Implementazione di BST con carte da gioco
+**Focus Principale**: Implementazione di un sistema di gestione per **carte fedeltà** tramite BST.
 
 **Strutture Dati Chiave**:
-- Albero Binario di Ricerca con puntatori al genitore
-- Struttura `carta` (seme + valore)
+- Albero Binario di Ricerca (BST) con chiave numerica (ID carta).
+- Struttura `cliente` che contiene `nome_cognome` e `punti`.
 
 **Funzioni Essenziali**:
-- `bst_insert()` - Mantiene la proprietà del BST durante l'inserimento
-- `bst_search()` - Operazioni di ricerca efficienti in O(log n)
-- `bst_delete()` - Cancellazione complessa con tre casi (foglia, un figlio, due figli)
+- `bst_insert()` - Inserimento di nuove carte fedeltà.
+- `bst_search()` - Ricerca efficiente delle carte per ID.
+- Query su intervalli per calcolare somme di punti.
 
 **Obiettivi di Apprendimento**:
-- Algoritmi di attraversamento degli alberi
-- Mantenimento della proprietà del BST
-- Manipolazione dei puntatori nelle strutture ad albero
-- Gestione della memoria con allocazione dinamica
+- Applicazione pratica dei BST per la gestione di dati reali.
+- Attraversamento di alberi per reportistica ordinata e calcoli aggregati.
+- Aggiornamento dei dati all'interno della struttura ad albero.
 
 ### Lab 180719 - Fondamenti di Code e Grafi
-**Focus Principale**: Implementazione di una coda FIFO + liste di adiacenza per grafi
+**Focus Principale**: Analisi di un social network modellato come **grafo orientato e non pesato**.
 
 **Strutture Dati Chiave**:
-- Coda con puntatori a testa/coda per operazioni in O(1)
-- Grafo che utilizza liste di adiacenza per efficienza spaziale
-- Archi pesati per applicazioni realistiche dei grafi
+- Coda per l'attraversamento Breadth-First Search (BFS).
+- Grafo rappresentato con liste di adiacenza.
+- Nodi di tipo `Utente` o `Tweet`.
 
 **Funzioni Essenziali**:
-- `enqueue()`/`dequeue()` - Operazioni su coda FIFO
-- `add_arc()`/`add_edge()` - Costruzione del grafo
-- Accessori per l'attraversamento del grafo
+- `enqueue()`/`dequeue()` - Operazioni di base della coda.
+- Traversal (BFS) per trovare utenti seguiti diretti e indiretti.
+- Analisi delle connessioni per identificare utenti "influenti".
 
 **Obiettivi di Apprendimento**:
-- Applicazioni delle code (BFS, scheduling di task)
-- Strategie di rappresentazione dei grafi
-- Liste di adiacenza efficienti in termini di spazio vs. matrici
-- Concetti di grafo pesato
+- Applicazione delle code per il BFS nei grafi.
+- Modellazione di relazioni complesse (segue, like, possiede) con un grafo.
+- Strategie di rappresentazione e attraversamento dei grafi.
 
 ### Lab 180911 - Liste Concatenate Avanzate e Recupero dell'Informazione
 **Focus Principale**: Liste doppiamente concatenate con indicizzazione di documenti
@@ -116,23 +114,22 @@ Ogni laboratorio ha il suo file `README.md` con dettagli specifici sull'esercita
 - Strategie di validazione dei dati
 
 ### Lab 190627 - Sistemi Informativi Geografici
-**Focus Principale**: Navigazione in città con punti di interesse
+**Focus Principale**: Navigazione in una città modellata come **grafo non pesato** di punti di interesse (POI).
 
 **Strutture Dati Chiave**:
-- Grafo migliorato con archi pesati
-- Struttura Punto di Interesse (POI) con metadati
-- Gestione combinata di dati di grafo e lista
+- Grafo che utilizza liste di adiacenza per le connessioni tra POI.
+- Lista ordinata per la gestione dei dati dei POI.
+- Struttura POI con ID, nome e tipo.
 
 **Funzioni Essenziali**:
-- Categorizzazione e filtraggio dei POI
-- Ricerca di percorsi tra località
-- Gestione di dati geografici
+- Filtraggio dei POI per tipo (es. solo musei).
+- Ricerca di percorsi omogenei (solo tra POI dello stesso tipo) tramite DFS.
+- Integrazione tra grafo e lista per la gestione dei dati.
 
 **Obiettivi di Apprendimento**:
-- Applicazioni reali dei grafi
-- Strutture dati multi-attributo
-- Gestione di dati spaziali
-- Concetti di servizi basati sulla localizzazione
+- Applicazioni reali dei grafi per sistemi di navigazione.
+- Combinazione di diverse strutture dati per risolvere problemi complessi.
+- Algoritmi di attraversamento (DFS) con vincoli.
 
 ### Lab 210917 - Gestione di Dati Temporali
 **Focus Principale**: Sistema di calendario/agenda con operazioni basate sul tempo
@@ -152,24 +149,22 @@ Ogni laboratorio ha il suo file `README.md` con dettagli specifici sull'esercita
 - Progettazione di sistemi di scheduling
 - Validazione di dati temporali
 
-### Lab 220721 - Sistemi di Gioco Multi-giocatore
-**Focus Principale**: Gestione di più mani di carte con stato di gioco
+### Lab 220721 - Analisi di Dati di Carte
+**Focus Principale**: Gestione e analisi comparativa di più mani di carte da gioco.
 
 **Strutture Dati Chiave**:
-- Liste di carte multiple e indipendenti
-- Gestione dello stato di gioco
-- Validazione della mano del giocatore
+- Liste doppiamente concatenate per rappresentare le mani di carte.
+- Struttura `carta` per seme e valore.
 
 **Funzioni Essenziali**:
-- Distribuzione di carte a più mani
-- Rilevamento di duplicati tra collezioni
-- Sincronizzazione dello stato di gioco
+- Gestione di collezioni multiple di dati (due mani di carte).
+- Ricerca di elementi comuni tra le liste.
+- Conteggio e analisi statistica delle carte in ogni mano.
 
 **Obiettivi di Apprendimento**:
-- Gestione di dati multi-collezione
-- Pattern di progettazione dello stato di gioco
-- Integrità dei dati tra collezioni
-- Analisi comparativa dei dati
+- Gestione di dati multi-collezione con strutture identiche.
+- Analisi comparativa tra diversi set di dati.
+- Integrità e validazione dei dati all'interno di una singola collezione.
 
 ### Lab 240703 - Applicazioni Avanzate dei BST
 **Focus Principale**: Sistema di gestione alberghiera con ricerca basata sulla valutazione
