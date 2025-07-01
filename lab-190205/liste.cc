@@ -91,6 +91,64 @@ lista ord_insert_elem(lista l, elem* e){
 		return l;}
 }
 
+/*******************************/
+/* IMPLEMENTAZIONE MODULO "liste" */
+/*******************************/
+
+lista tail(lista p) {
+    return p->pun;
+}
+
+lista prev(lista p) {
+    return p->prev;
+}
+
+tipo_inf head(lista p) {
+    return p->inf;
+}
+
+elem* new_elem(tipo_inf inf) {
+    elem* p = new elem;
+    copy(p->inf, inf);
+    p->pun = p->prev = NULL;
+    return p;
+}
+
+lista insert_elem(lista l, elem* e) {
+    e->pun = l;
+    if (l != NULL) {
+        l->prev = e;
+    }
+    e->prev = NULL;
+    return e;
+}
+
+lista delete_elem(lista l, elem* e) {
+    if (l == e) {
+        l = e->pun;
+        if (l != NULL) {
+            l->prev = NULL;
+        }
+    } else {
+        e->prev->pun = e->pun;
+        if (e->pun != NULL) {
+            e->pun->prev = e->prev;
+        }
+    }
+    delete e;
+    return l;
+}
+
+elem* search(lista l, tipo_inf inf) {
+    while (l != NULL) {
+        if (compare(l->inf, inf) == 0) {
+            return l;
+        }
+        l = l->pun;
+    }
+    return NULL;
+}
+
 
 
 
