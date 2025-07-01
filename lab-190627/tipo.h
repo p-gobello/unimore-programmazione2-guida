@@ -1,3 +1,6 @@
+#ifndef TIPO_H
+#define TIPO_H
+
 /*******************************/
 /* HEADER MODULO "tipo" */
 /*******************************/
@@ -13,3 +16,5 @@ typedef struct{
 int compare(tipo_inf,tipo_inf);
 void copy(tipo_inf&,tipo_inf);
 void print(tipo_inf);
+
+#endif

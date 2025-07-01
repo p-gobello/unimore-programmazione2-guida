@@ -1,5 +1,3 @@
-
-
 #ifndef GRAFI_H_
 #define GRAFI_H_
 struct adj_node {
@@ -24,6 +22,8 @@ int get_dim(graph);
 adj_list get_adjlist(graph,int);
 int get_adjnode(adj_list);
 adj_list get_nextadj(adj_list);
+
+void print_graph(graph);
 
 
 

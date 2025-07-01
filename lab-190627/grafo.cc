@@ -58,3 +58,15 @@ int get_adjnode(adj_list l){
 adj_list get_nextadj(adj_list l){
 	return l->next;
 }
+
+void print_graph(graph g) {
+    for (int i = 1; i <= get_dim(g); ++i) {
+        cout << i << ": ";
+        adj_list l = get_adjlist(g, i);
+        while (l != NULL) {
+            cout << get_adjnode(l) << " ";
+            l = get_nextadj(l);
+        }
+        cout << endl;
+    }
+}

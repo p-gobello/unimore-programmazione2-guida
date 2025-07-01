@@ -41,16 +41,20 @@ elem* ord_search(lista l, tipo_inf v){
 				l=tail(l);
 		return NULL;}
 
-elem* new_elem(tipo_inf inf){
-	    elem* p = new elem ;
-	    copy(p->inf,inf);
-	    p->pun=p->prev=NULL;
-		return p;
+elem* create_elem(tipo_inf p){ // Changed from new_elem to create_elem
+	elem * newp = new elem;
+	copy(newp->inf,p);
+	newp->pun=newp->prev=NULL;
+	return newp;
+}
 
+void print_list(lista p){
+	while(p!=NULL){
+		print(p->inf);
+		p=p->pun;
 	}
-
-
-
+	cout<<endl;
+}
 
 lista tail(lista p){return p->pun;}
 lista prev(lista p){return p->prev;}
