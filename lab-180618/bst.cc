@@ -128,7 +128,7 @@ void bst_delete(bst& b, bnode* n){
 			    // sostituisco app a n
 			    app->left = get_left(n);
 			    app->right = get_right(n);
-			    if(get_left(app)!=NULL)
+			    if(get_right(app)!=NULL)
 			    	(app->right)->parent = app;
 			    if(get_left(app)!=NULL)
 			    	(app->left)->parent = app;
