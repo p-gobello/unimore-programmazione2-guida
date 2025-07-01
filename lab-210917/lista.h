@@ -20,5 +20,7 @@ lista delete_elem(lista, elem*);
 tipo_inf head(lista);
 elem* new_elem(tipo_inf);
 elem* search(lista, tipo_inf);
+lista inserimento_ordinato(lista, tipo_inf);
+bool controlla_sovrapposizioni(lista, tipo_inf);
 
 #endif
