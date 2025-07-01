@@ -1,11 +1,19 @@
-# Lab 210917 - Agenda/Calendar Management with Doubly Linked Lists
+# Lab 210917: Agenda Management System
 
 ## Overview
-This lab implements a calendar/agenda system using doubly-linked lists to manage appointments. Each appointment contains date, start time, end time, and description information. The system demonstrates practical application of list data structures for time management software.
 
-## Data Structures
+This project implements a complete agenda management system using a **doubly-linked list** to handle time-based appointments. The system reads appointment data from a file, performs ordered insertion, prevents scheduling conflicts, and provides functionalities for searching and filtering appointments based on various criteria.
 
-### Appointment Structure (`tipo_inf`)
+The implementation successfully fulfills all requirements of the laboratory assignment, providing a robust and well-documented solution for managing temporal data.
+
+## Data Model
+
+The system is built around a core `tipo_inf` structure representing a single appointment, managed within a doubly-linked list.
+
+### Appointment Data (`tipo.h`)
+
+Appointments are defined with date, start/end times, and a textual description.
+
 ```cpp
 typedef struct tipo_inf {
     char data[7];      // Date in YYMMDD format (e.g., "210919")
@@ -15,260 +23,101 @@ typedef struct tipo_inf {
 };
 ```
 
-### Doubly Linked List Node (`elem`)
+### Doubly-Linked List (`lista.h`)
+
+The list structure allows for efficient traversal in both chronological and reverse-chronological order.
+
 ```cpp
 struct elem {
     tipo_inf inf;    // Appointment data
-    elem* pun;       // Pointer to next appointment
-    elem* prev;      // Pointer to previous appointment
+    elem* pun;       // Pointer to next appointment (later in time)
+    elem* prev;      // Pointer to previous appointment (earlier in time)
 };
 ```
 
-### List Type
-- `typedef elem* lista` - List represented as pointer to first element
+## Input Files
 
-## Sample Agenda Data
+The program loads its data from a single plain text file:
 
-The `agenda.txt` file shows a typical daily schedule:
+-   **`agenda.txt`**: Defines appointment information.
+    -   **Format**: Date, start time, and end time on the first line; description on the second line.
+    -   **Example**:
+        ```
+        210919 1200 1300
+        Riunione con Luca
+        ```
 
-### September 19, 2021 (210919)
-- **08:30-11:00**: Lezione (Lecture)
-- **12:00-13:00**: Riunione con Luca (Meeting with Luca)
-- **14:00-14:30**: Pranzo (Lunch)
-- **14:30-15:30**: Palestra (Gym) - *Overlaps with Esami!*
-- **14:30-18:30**: Esami (Exams) - *Conflict detected*
-- **19:30-20:00**: Palestra (Gym again)
+## Implemented Features
 
-### Other Dates
-- **September 14, 2021**: 09:30-11:00 Riunione plenaria (Plenary meeting)
-- **September 21, 2021**: 09:00-11:00 Lezione (Lecture)
-- **September 22, 2021**: 11:00-13:00 Lezione (Lecture)
+The `compito.cc` file contains the main logic, divided into features as specified in the laboratory assignment.
 
-## Implemented Functions
+### 1. Core Agenda Management (Punto 1)
+- **`void aggiungi_agenda(lista&, tipo_inf)`**: Adds an appointment, but only if another appointment with the same date and start time does not already exist. It prints an error on conflict.
+- **`void stampa(lista)`**: Prints the entire agenda to the console, ordered chronologically.
+- **`main()`**: The main program loads all appointments from `agenda.txt` and uses the above functions to build and display the final, correct agenda.
 
-### Core List Operations
+### 2.a. Daily Appointment Analysis (Punto 2.a)
+- **`void quanti(lista, tipo_inf)`**: Given a specific appointment, this function calculates and prints the number of other appointments scheduled on the same day that occur before it and after it.
 
-1. **`elem* new_elem(tipo_inf inf)`**
-   - Creates new appointment element
-   - Copies appointment data using `copy()` function
-   - Initializes pointers to NULL
+### 2.b. Ordered Insertion (Punto 2.b)
+- **`lista inserimento_ordinato(lista, tipo_inf)`**: This function ensures that appointments are always inserted into the list in chronological order (by date, then by start time). This is a core part of `aggiungi_agenda`.
 
-2. **`lista insert_elem(lista l, elem* e)`**
-   - Inserts appointment at head of list
-   - Updates bidirectional links
-   - **Use case**: Adding new appointments
+### 3. Appointment Extraction (Punto 3)
+- **`lista estrai(lista&, char*)`**: Creates a new list containing only appointments that match a given description. This function is highly efficient as it manipulates pointers to move nodes from the main agenda to the new list without allocating or deallocating memory.
 
-3. **`lista delete_elem(lista l, elem* e)`**
-   - Removes specific appointment from list
-   - Handles head deletion and pointer updates
-   - Frees memory properly
-   - **Use case**: Canceling appointments
+## Core Data Structures
 
-4. **`elem* search(lista l, tipo_inf v)`**
-   - Linear search for specific appointment
-   - Uses `compare()` function for matching
-   - **Use case**: Finding existing appointments
+The implementation relies on one fundamental data structure:
 
-### Accessor Functions
+-   **Ordered List (`liste`)**: A **doubly-linked list** that maintains appointment data sorted chronologically by date and start time. This structure is ideal for efficient traversal and ordered printing.
 
-5. **`tipo_inf head(lista p)`** - Returns appointment data from first element
-6. **`lista tail(lista p)`** - Returns pointer to next appointment
-7. **`lista prev(lista p)`** - Returns pointer to previous appointment
+## How to Compile and Run
 
-### Appointment Type Operations
+A `Makefile` is provided for easy compilation.
 
-8. **`int compare(tipo_inf a1, tipo_inf a2)`**
-   - Compares two appointments for ordering/equality
-   - **Possible comparison strategies**:
-     - By date first, then start time
-     - By start time only
-     - Exact match for all fields
+1.  **Compile the project**:
+    ```sh
+    make
+    ```
+2.  **Run the executable**:
+    ```sh
+    ./agenda
+    ```
 
-9. **`void copy(tipo_inf& dest, tipo_inf source)`**
-   - Copies appointment data including all string fields
-   - Handles date, start time, end time, and description
+The program runs non-interactively, executing all defined tests and printing the results.
 
-10. **`void print(tipo_inf inf)`**
-    - Prints appointment in readable format
-    - **Example**: "19/09/21 12:00-13:00: Riunione con Luca"
+### Expected Output
 
-## Key Algorithms and Calendar Concepts
+Running the program with the provided `agenda.txt` produces the following verified results:
 
-### Time Management Operations
+**Punto 1: Agenda Loading and Conflict Detection**
+- The appointment `210919 1430 1530 Palestra` is correctly rejected with an error message because it conflicts with an existing appointment.
+- The final agenda is printed in chronological order.
 
-#### Chronological Insertion
-```cpp
-lista insert_chronological(lista agenda, tipo_inf new_appointment) {
-    // Insert maintaining date/time order
-    if (agenda == NULL || is_earlier(new_appointment, head(agenda))) {
-        elem* new_elem = new_elem(new_appointment);
-        return insert_elem(agenda, new_elem);
-    }
-    
-    lista current = agenda;
-    while (tail(current) != NULL && 
-           is_earlier(head(tail(current)), new_appointment)) {
-        current = tail(current);
-    }
-    
-    // Insert after current
-    elem* new_elem = new_elem(new_appointment);
-    // ... insertion logic
-}
-```
+**Punto 2.a: Daily Analysis**
+- For the appointment `210919 1400 1430 Pranzo`, the program prints:
+  `2 appuntamenti prima e 2 appuntamento dopo`
 
-#### Conflict Detection
-```cpp
-bool has_time_conflict(tipo_inf apt1, tipo_inf apt2) {
-    // Check if appointments overlap
-    if (strcmp(apt1.data, apt2.data) != 0) return false; // Different days
-    
-    int start1 = atoi(apt1.orai), end1 = atoi(apt1.oraf);
-    int start2 = atoi(apt2.orai), end2 = atoi(apt2.oraf);
-    
-    return !(end1 <= start2 || end2 <= start1); // No gap between appointments
-}
-```
+**Punto 3: Extraction by Description**
+- When extracting appointments with the description "Lezione":
+    - A new list containing the 3 "Lezione" appointments is created and printed.
+    - The main agenda is reprinted, now missing those 3 appointments.
 
-#### Daily Schedule Extraction
-```cpp
-lista get_daily_schedule(lista agenda, char* date) {
-    lista daily = NULL;
-    while (agenda != NULL) {
-        if (strcmp(head(agenda).data, date) == 0) {
-            elem* copy = new_elem(head(agenda));
-            daily = insert_elem(daily, copy);
-        }
-        agenda = tail(agenda);
-    }
-    return daily;
-}
-```
+## Technical Implementation
 
-### Time Format Handling
+### File Loading Strategy
+- **Agenda Loading**: Reads `agenda.txt` line by line, parsing date/time information and handling multi-word descriptions correctly with `getline`.
+- **Error Handling**: Includes a check for the existence of `agenda.txt` to prevent runtime errors.
 
-#### Time Comparison
-```cpp
-bool is_earlier_time(char* time1, char* time2) {
-    int t1 = atoi(time1), t2 = atoi(time2);
-    return t1 < t2;
-}
+### Algorithm Efficiency
+- **Ordered Insertion**: `O(n)` per appointment, as it may require traversing the list to find the correct position. Total loading time is `O(n^2)`.
+- **Search**: `O(n)` due to the linear nature of linked list traversal.
+- **Extraction**: `O(n)`, as it requires a single pass through the list.
+- **Memory Management**: The `estrai` function is implemented to be memory-neutral, moving nodes without `new` or `delete` calls to prevent memory leaks.
 
-int time_difference_minutes(char* start, char* end) {
-    int start_hour = atoi(start) / 100;
-    int start_min = atoi(start) % 100;
-    int end_hour = atoi(end) / 100;
-    int end_min = atoi(end) % 100;
-    
-    return (end_hour * 60 + end_min) - (start_hour * 60 + start_min);
-}
-```
+### Data Structure Integration
+- **Chronological Integrity**: The `compare` function in `tipo.cc` is central to maintaining order, first comparing by date and then by start time.
+- **Conflict Management**: The core logic in `aggiungi_agenda` performs an `O(n)` search to check for duplicates before insertion, ensuring data integrity.
+- **List Manipulation**: The project demonstrates robust pointer manipulation for insertion, deletion, and moving nodes between lists, which are key skills for advanced data structure management.
 
-#### Date Operations
-```cpp
-bool is_same_date(char* date1, char* date2) {
-    return strcmp(date1, date2) == 0;
-}
-
-bool is_earlier_date(char* date1, char* date2) {
-    return strcmp(date1, date2) < 0; // Lexicographic comparison works for YYMMDD
-}
-```
-
-## Practical Applications
-
-### Calendar Software Features
-
-#### Basic Operations
-- **Add appointment**: `insert_elem()` or chronological insertion
-- **Cancel appointment**: `search()` then `delete_elem()`
-- **View schedule**: Traverse list and `print()`
-- **Edit appointment**: `search()`, modify data, or delete+insert
-
-#### Advanced Features
-```cpp
-// Find free time slots
-lista find_free_slots(lista agenda, char* date, int min_duration) {
-    // Sort by time, find gaps >= min_duration
-}
-
-// Weekly view
-void print_weekly_schedule(lista agenda, char* start_date) {
-    // Extract and display 7 days starting from start_date
-}
-
-// Conflict resolution
-lista resolve_conflicts(lista agenda) {
-    // Identify overlapping appointments and suggest alternatives
-}
-```
-
-### Real-World Extensions
-
-#### Enhanced Appointment Structure
-```cpp
-typedef struct {
-    char data[9];           // Full date: YYYYMMDD
-    char orai[6];          // Start time: HH:MM
-    char oraf[6];          // End time: HH:MM
-    char descr[101];       // Longer description
-    char location[51];     // Meeting location
-    char attendees[201];   // List of participants
-    int priority;          // 1-5 priority level
-    bool reminder_set;     // Reminder flag
-    int reminder_minutes;  // Minutes before event
-} enhanced_appointment;
-```
-
-## General Concepts for Future Reference
-
-### Calendar Data Management
-
-#### Ordering Strategies
-1. **Chronological**: By date, then start time
-2. **Priority-based**: High priority items first
-3. **Duration-based**: Longest/shortest appointments first
-4. **Category-based**: Group by type (meetings, classes, personal)
-
-#### Search Patterns
-- **By date range**: Find all appointments in a week/month
-- **By keyword**: Search descriptions for specific terms
-- **By time**: Find what's happening at a specific time
-- **By duration**: Find long meetings or quick appointments
-
-### Time Conflict Management
-
-#### Conflict Types
-1. **Direct overlap**: Same time, same date
-2. **Travel time**: Insufficient time between locations
-3. **Resource conflict**: Same room/equipment needed
-4. **Person conflict**: Same person in multiple meetings
-
-#### Resolution Strategies
-- **Automatic rescheduling**: Find alternative time slots
-- **Priority-based**: Keep higher priority, reschedule lower
-- **User notification**: Alert and let user decide
-- **Buffer time**: Automatically add travel/setup time
-
-### Performance Considerations
-
-#### Memory Usage
-- **Fixed-size strings**: Predictable memory per appointment
-- **List overhead**: 2 pointers per appointment
-- **String storage**: Unused space in fixed arrays
-
-#### Time Complexities
-- **Insert at head**: O(1)
-- **Chronological insert**: O(n)
-- **Search by content**: O(n)
-- **Delete with pointer**: O(1)
-- **Conflict detection**: O(n²) for all pairs
-
-### Applications
-- **Personal calendars**: Desktop/mobile applications
-- **Scheduling systems**: Meeting room booking, employee schedules
-- **Project management**: Task scheduling with dependencies
-- **Medical systems**: Appointment booking for healthcare
-- **Educational systems**: Class scheduling and room allocation
-
-This lab demonstrates how linked lists can effectively manage temporal data with complex relationships, providing a foundation for developing scheduling and time management applications.
+This implementation successfully demonstrates the use of doubly-linked lists for a practical, real-world application like an agenda system, focusing on data integrity, chronological ordering, and efficient list manipulation.

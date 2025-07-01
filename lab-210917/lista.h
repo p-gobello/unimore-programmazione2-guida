@@ -3,6 +3,7 @@
 /*******************************/
 #ifndef LISTE
 #define LISTE
+#include "tipo.h"
 struct elem
 {
        tipo_inf inf;

@@ -3,11 +3,11 @@ CXXFLAGS = -Wall -g
 
 all: agenda
 
-agenda: main.o lista.o tipo.o
-	$(CXX) $(CXXFLAGS) -o agenda main.o lista.o tipo.o
+agenda: compito.o lista.o tipo.o
+	$(CXX) $(CXXFLAGS) -o agenda compito.o lista.o tipo.o
 
-main.o: main.cc lista.h tipo.h
-	$(CXX) $(CXXFLAGS) -c main.cc
+compito.o: compito.cc lista.h tipo.h
+	$(CXX) $(CXXFLAGS) -c compito.cc
 
 lista.o: lista.cc lista.h tipo.h
 	$(CXX) $(CXXFLAGS) -c lista.cc
