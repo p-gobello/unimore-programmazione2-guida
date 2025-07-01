@@ -116,19 +116,31 @@ void bst_delete(bst& b, bnode* n){
 	            bnode* app = get_left(n);
 	            while (get_right(app) != NULL) //cerco l'elemento più a destra nel sottoalbero di sx
 	           		        	app = get_right(app);
+	            
+	            // Rimuovo app dalla sua posizione originale
 	            if(get_left(app)==NULL){ //app è una foglia
-					update_father(app, NULL);
+					if(app->parent->left == app)
+						app->parent->left = NULL;
+					else
+						app->parent->right = NULL;
 		        } else {  //app ha il figlio sinistro
-					(app->parent)->right = get_left(app);
+					if(app->parent->left == app)
+						app->parent->left = get_left(app);
+					else
+						app->parent->right = get_left(app);
 					(app->left)->parent = get_parent(app);
 		        }
+		        
 			    // sostituisco app a n
 			    app->left = get_left(n);
 			    app->right = get_right(n);
-			    if(get_left(app)!=NULL)
-			    	(app->right)->parent = app;
-			    if(get_left(app)!=NULL)
-			    	(app->left)->parent = app;
+			    app->parent = get_parent(n);
+			    
+			    if(get_right(n)!=NULL)
+			    	(get_right(n))->parent = app;
+			    if(get_left(n)!=NULL)
+			    	(get_left(n))->parent = app;
+			    	
 			    new_child=app;
 
 	        }
