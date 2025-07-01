@@ -1,7 +1,7 @@
-# Lab 180911 - Doubly Linked Lists and Inverted Index
+# Lab 180911 - Doubly Linked Lists Management Program
 
 ## Overview
-This lab implements doubly-linked lists with various operations and appears to be designed for creating an inverted index data structure for document search. The implementation includes ordered and unordered list operations, search functionality, and supports a word-document mapping system.
+This lab implements a complete doubly-linked lists management program with a menu-driven interface. The program allows users to create, manipulate, search, and manage doubly-linked lists of integers with both ordered and unordered variants.
 
 ## Data Structures
 
@@ -184,3 +184,52 @@ if (list_is_sorted) {
 - **Space**: O(n) with double pointer overhead
 
 This lab provides essential foundation for understanding linked data structures and their applications in information retrieval systems like search engines and databases.
+
+## Program Features
+
+The main program (`main.cc`) provides a menu-driven interface with the following options:
+
+1. **Create Unordered List**: Create a new list by inserting elements at the head
+2. **Create Ordered List**: Create a new list maintaining sorted order during insertion
+3. **Print List**: Display the current list contents and indicate if it's sorted
+4. **Search Value**: Search for a specific value using:
+   - `ord_search()` for sorted lists (optimized with early termination)
+   - `search()` for unsorted lists (full linear search)
+5. **Delete All Occurrences**: Remove all elements containing a specified value
+6. **Exit**: Terminate the program with proper memory cleanup
+
+### Compilation and Execution
+
+```bash
+# Using provided Makefile
+make clean && make
+./programa
+
+# Or direct compilation
+g++ -o programa main.cc liste.cc tipo.cc
+./programa
+```
+
+### Sample Usage
+
+```
+=== GESTIONE LISTE DOPPIE ===
+1. Crea lista non ordinata
+2. Crea lista ordinata  
+3. Stampa lista
+4. Cerca valore
+5. Cancella tutte le occorrenze di un valore
+0. Esci
+Scelta: 2
+Quanti elementi vuoi inserire? 4
+Inserisci 4 valori:
+Valore 1: 30
+Valore 2: 10
+Valore 3: 40
+Valore 4: 20
+Lista ordinata creata.
+
+Scelta: 3
+Lista: 10 -> 20 -> 30 -> 40
+(Lista ordinata)
+```
