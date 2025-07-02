@@ -10,6 +10,7 @@
 7. [Algoritmi di Ordinamento](#7-ordinamento)
 8. [Algoritmi di Dijkstra e Prim](#8-algoritmi-grafi)
 9. [Template Makefile](#9-makefile)
+10. [Generazione Numeri Randomici](#10-random)
 
 ---
 
@@ -1207,28 +1208,29 @@ make clean-doc    # Rimuovi documentazione
 
 ---
 
-## 💡 Riferimento Rapido Suggerimenti
+## 10. Generazione Numeri Randomici {#10-random}
 
-### ⚠️ Errori Comuni
+### 🚀 Come generare numeri randomici in C++
 
-1. **Confusione indici** - Ricorda 1-indicizzato vs 0-indicizzato
-2. **Accesso puntatore null** - Controlla sempre NULL/nullptr
-3. **Memory leak** - Usa pulizia appropriata (delete, delete[])
-4. **Buffer overflow** - Controlla limiti array
-5. **Variabili non inizializzate** - Inizializza sempre
+Per generare numeri casuali in C++ (stile classico):
 
-### 🎯 Buone Pratiche
+```cpp
+#include <cstdlib>   // Per rand(), srand()
+#include <ctime>     // Per time()
+#include <iostream>
+using namespace std;
 
-1. **Usa const** quando non modifichi parametri
-2. **Passa per riferimento** per oggetti grandi
-3. **Controlla valori di ritorno** dalle operazioni su file
-4. **Usa RAII** per gestione automatica risorse
-5. **Documenta il codice** con commenti e Doxygen
+int main() {
+    srand(time(0)); // Inizializza il seme con il tempo attuale
+    int random_number = rand(); // Numero casuale intero
+    cout << "Numero random: " << random_number << endl;
+    // Per un range specifico, ad esempio tra 0 e 99:
+    int random_0_99 = rand() % 100;
+    cout << "Random tra 0 e 99: " << random_0_99 << endl;
+    return 0;
+}
+```
 
-### 🔍 Strategie di Debug
+**Nota:** Chiamare `srand(time(0))` una sola volta all'inizio del programma per evitare sequenze ripetitive.
 
-1. **Stampa valori intermedi** per tracciare esecuzione
-2. **Usa debugger** (gdb) per analisi passo-passo
-3. **Aggiungi asserzioni** per controllare precondizioni
-4. **Testa con esempi piccoli** prima
-5. **Disegna strutture dati** su carta
+---

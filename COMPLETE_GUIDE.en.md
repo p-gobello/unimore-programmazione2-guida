@@ -10,6 +10,7 @@
 7. [Sorting Algorithms](#7-sorting)
 8. [Dijkstra and Prim Algorithms](#8-graph-algorithms)
 9. [Makefile Template](#9-makefile)
+10. [Random Number Generation](#10-random)
 
 ---
 
@@ -755,7 +756,7 @@ char* found_char = strchr(str1, 'T'); // Find character
 
 #### char[] to string
 ```cpp
-char char_array[] = "Hello World";
+char char_array[] = "Hello";
 
 // Method 1: Constructor (most common)
 string str1(char_array);
@@ -766,7 +767,7 @@ string str2 = char_array;
 
 #### string to char[]
 ```cpp
-string str = "Hello World";
+string str = "Hello";
 
 // Method 1: Using c_str() (read-only)
 const char* cstr = str.c_str();
@@ -1207,28 +1208,29 @@ make clean-doc    # Remove documentation
 
 ---
 
-## 💡 Quick Reference Tips
+## 10. Random Number Generation {#10-random}
 
-### ⚠️ Common Pitfalls
+### 🚀 How to generate random numbers in C++
 
-1. **Index confusion** - Remember 1-indexed vs 0-indexed
-2. **Null pointer access** - Always check for NULL/nullptr
-3. **Memory leaks** - Use proper cleanup (delete, delete[])
-4. **Buffer overflow** - Check array bounds
-5. **Uninitialized variables** - Always initialize
+To generate random numbers in classic C++ style:
 
-### 🎯 Best Practices
+```cpp
+#include <cstdlib>   // For rand(), srand()
+#include <ctime>     // For time()
+#include <iostream>
+using namespace std;
 
-1. **Use const** when you don't modify parameters
-2. **Pass by reference** for large objects
-3. **Check return values** from file operations
-4. **Use RAII** for automatic resource management
-5. **Document your code** with comments and Doxygen
+int main() {
+    srand(time(0)); // Seed with current time
+    int random_number = rand(); // Random integer
+    cout << "Random number: " << random_number << endl;
+    // For a specific range, e.g., 0 to 99:
+    int random_0_99 = rand() % 100;
+    cout << "Random between 0 and 99: " << random_0_99 << endl;
+    return 0;
+}
+```
 
-### 🔍 Debugging Strategies
+**Note:** Call `srand(time(0))` only once at the start of your program to avoid repeated sequences.
 
-1. **Print intermediate values** to trace execution
-2. **Use debugger** (gdb) for step-by-step analysis
-3. **Add assertions** to check preconditions
-4. **Test with small examples** first
-5. **Draw data structures** on paper
+---
