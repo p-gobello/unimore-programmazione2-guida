@@ -17,6 +17,7 @@ Questa repository contiene analisi complete di 8 esercitazioni di laboratorio di
 ├── lab-210917/     # Gestione Calendario/Agenda
 ├── lab-220721/     # Sistema di Gioco di Carte Multi-giocatore
 ├── lab-240703/     # Gestione Alberghiera con BST
+├── prova_grafi_250305/  # Sistema di Valutazione Prodotti con Grafo Bipartito
 └── README.md       # Questo file di panoramica
 ```
 
@@ -38,6 +39,7 @@ Ogni laboratorio ha il suo file `README.md` con dettagli specifici sull'esercita
 - [Lab 210917](./lab-210917/README.md)
 - [Lab 220721](./lab-220721/README.md)
 - [Lab 240703](./lab-240703/README.md)
+- [Prova Grafi 250305](./prova_grafi_250305/README.md)
 
 ## Riepilogo dei Laboratori
 
@@ -183,6 +185,25 @@ Ogni laboratorio ha il suo file `README.md` con dettagli specifici sull'esercita
 - Dati multi-criterio in strutture a chiave singola
 - Progettazione di applicazioni aziendali
 - Ottimizzazione della ricerca per domini specifici
+
+### Prova Grafi 250305 - Sistema di Valutazione Prodotti con Grafo Bipartito
+**Focus Principale**: Sistema di raccomandazione prodotti modellato come **grafo bipartito pesato**
+
+**Strutture Dati Chiave**:
+- Grafo bipartito con nodi utente e prodotto
+- Archi pesati per le valutazioni (1-5 stelle)
+- Liste di adiacenza per rappresentazione efficiente
+
+**Funzioni Essenziali**:
+- Calcolo della media valutazioni per utente e prodotto
+- Sistema di raccomandazione basato su filtri collaborativi
+- Analisi dei pattern di valutazione
+
+**Obiettivi di Apprendimento**:
+- Modellazione di sistemi di raccomandazione reali
+- Algoritmi di collaborative filtering
+- Applicazioni dei grafi nell'e-commerce
+- Tecniche di data mining su grafi
 
 ## Concetti Fondamentali di Informatica Trattati
 

@@ -1,0 +1,498 @@
+\hypertarget{md_README_autotoc_md1}{}\doxysection{Overview}\label{md_README_autotoc_md1}
+This lab implements a {\bfseries{bipartite graph system}} for managing and analyzing user ratings of products online. The system models users and products as nodes in a graph, with weighted edges representing ratings (1-\/5 stars) from users to products. This implementation demonstrates practical applications of graph data structures in recommendation systems and data mining.\hypertarget{md_README_autotoc_md2}{}\doxysection{Data Structures}\label{md_README_autotoc_md2}
+\hypertarget{md_README_autotoc_md3}{}\doxysubsection{Node Information Structure ($<$tt$>$tipo\+\_\+inf$<$/tt$>$)}\label{md_README_autotoc_md3}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{    \textcolor{keywordtype}{char} descrizione[20];  \textcolor{comment}{// Node description (user account or product name)}}
+\DoxyCodeLine{    \textcolor{keywordtype}{char} tipo;            \textcolor{comment}{// Node type: 'U' for User, 'P' for Product}}
+\DoxyCodeLine{\} \mbox{\hyperlink{structtipo__inf}{tipo\_inf}};}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md4}{}\doxysubsection{Graph Structure}\label{md_README_autotoc_md4}
+
+\begin{DoxyItemize}
+\item {\bfseries{Bipartite Graph}}\+: Nodes are either users (\textquotesingle{}U\textquotesingle{}) or products (\textquotesingle{}P\textquotesingle{})
+\item {\bfseries{Directed Edges}}\+: From users to products only
+\item {\bfseries{Weighted Edges}}\+: Edge weights represent star ratings (1-\/5)
+\item {\bfseries{Adjacency List Representation}}\+: Efficient storage for sparse graphs
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md5}{}\doxysubsection{Graph Node Structure ($<$tt$>$adj\+\_\+node$<$/tt$>$)}\label{md_README_autotoc_md5}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{struct }\mbox{\hyperlink{structadj__node}{adj\_node}} \{}
+\DoxyCodeLine{    \textcolor{keywordtype}{int} node;              \textcolor{comment}{// Target node index}}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} weight;          \textcolor{comment}{// Rating (1-\/5 stars)}}
+\DoxyCodeLine{    \textcolor{keyword}{struct }\mbox{\hyperlink{structadj__node}{adj\_node}}* next; \textcolor{comment}{// Next node in adjacency list}}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md6}{}\doxysection{Sample Data Analysis}\label{md_README_autotoc_md6}
+\hypertarget{md_README_autotoc_md7}{}\doxysubsection{From $<$tt$>$nodi.\+txt$<$/tt$>$ (7 nodes)\+:}\label{md_README_autotoc_md7}
+
+\begin{DoxyItemize}
+\item {\bfseries{Users}}\+: Paolo (1), Giovanna (3), Carla (4), Pino (5)
+\item {\bfseries{Products}}\+: Ciabatta (2), Scatola (6), Gioco (7)
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md8}{}\doxysubsection{From $<$tt$>$valutazioni.\+txt$<$/tt$>$ (\+Rating Graph)\+:}\label{md_README_autotoc_md8}
+
+\begin{DoxyItemize}
+\item {\bfseries{Paolo}}\+: Ciabatta (5★), Gioco (2★) → Average\+: 3.\+5
+\item {\bfseries{Giovanna}}\+: Gioco (3★), Scatola (4★) → Average\+: 3.\+5
+\item {\bfseries{Carla}}\+: Scatola (5★) → Average\+: 5.\+0
+\item {\bfseries{Pino}}\+: Gioco (3★) → Average\+: 3.\+0
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md9}{}\doxysubsection{Product Ratings\+:}\label{md_README_autotoc_md9}
+
+\begin{DoxyItemize}
+\item {\bfseries{Ciabatta}}\+: 5★ (Paolo) → Average\+: 5.\+0
+\item {\bfseries{Scatola}}\+: 4★ (Giovanna), 5★ (Carla) → Average\+: 4.\+5
+\item {\bfseries{Gioco}}\+: 2★ (Paolo), 3★ (Giovanna), 3★ (Pino) → Average\+: 2.\+67
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md10}{}\doxysection{Implemented Functions}\label{md_README_autotoc_md10}
+\hypertarget{md_README_autotoc_md11}{}\doxysubsection{Core Data Management}\label{md_README_autotoc_md11}
+
+\begin{DoxyEnumerate}
+\item $\ast$$\ast${\ttfamily tipo\+\_\+inf$\ast$ \mbox{\hyperlink{compito_8cc_a34e66f1d50c07f0a9bf48f93c6dc148c}{crea\+Nodi(int\& n)}}}$\ast$$\ast$
+\begin{DoxyItemize}
+\item Loads node information from {\ttfamily nodi.\+txt}
+\item Creates dynamic array of user and product nodes
+\item {\bfseries{Input file format}}\+: Number of nodes, then pairs of (description, type)
+\item {\bfseries{Returns}}\+: Array of nodes and count via reference
+\end{DoxyItemize}
+\item $\ast$$\ast${\ttfamily void \mbox{\hyperlink{compito_8cc_ac8b1998155811171afd53e277e5b9308}{stampa(graph g, tipo\+\_\+inf$\ast$ nodes, int dim)}}}$\ast$$\ast$
+\begin{DoxyItemize}
+\item Prints all user ratings in format\+: \char`\"{}\+User valuta Rating Product\char`\"{}
+\item Traverses adjacency lists for all user nodes
+\item {\bfseries{Use case}}\+: Overview of all ratings in the system
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md12}{}\doxysubsection{Analytics Functions}\label{md_README_autotoc_md12}
+
+\begin{DoxyEnumerate}
+\item $\ast$$\ast${\ttfamily float \mbox{\hyperlink{compito_8cc_a7a535c5080f4f27d2112375572146663}{media\+\_\+utente(char$\ast$ account, graph g, tipo\+\_\+inf$\ast$ nodes, int dim)}}}$\ast$$\ast$
+\begin{DoxyItemize}
+\item Calculates average rating given by a specific user
+\item {\bfseries{Algorithm}}\+: Sum all ratings by user / number of products rated
+\item {\bfseries{Example}}\+: Paolo rated Ciabatta (5★) and Gioco (2★) → Average\+: 3.\+5
+\end{DoxyItemize}
+\item $\ast$$\ast${\ttfamily float \mbox{\hyperlink{compito_8cc_aee873fb6c1ff4d51b860ea149122a2c4}{media\+\_\+prod(char$\ast$ prod, graph g, tipo\+\_\+inf$\ast$ nodes, int dim)}}}$\ast$$\ast$
+\begin{DoxyItemize}
+\item Calculates average rating received by a specific product
+\item {\bfseries{Algorithm}}\+: Sum all ratings for product / number of users who rated it
+\item {\bfseries{Example}}\+: Scatola rated by Giovanna (4★) and Carla (5★) → Average\+: 4.\+5
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md13}{}\doxysubsection{Recommendation System}\label{md_README_autotoc_md13}
+
+\begin{DoxyEnumerate}
+\item $\ast$$\ast${\ttfamily void \mbox{\hyperlink{compito_8cc_a313858710a6084bffae10614df76c585}{suggerisci(char$\ast$ account, char$\ast$ prod, graph g, tipo\+\_\+inf$\ast$ nodes, int dim)}}}$\ast$$\ast$
+\begin{DoxyItemize}
+\item Recommends products based on collaborative filtering
+\item {\bfseries{Algorithm}}\+:
+\begin{DoxyItemize}
+\item Find users who rated the same product with the same rating
+\item Suggest products these users rated with ≥3 stars
+\item Exclude products already rated by the target user
+\end{DoxyItemize}
+\item {\bfseries{Example}}\+: Pino and Giovanna both rated Gioco with 3★, so suggest Scatola (4★) to Pino
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{md_README_autotoc_md14}{}\doxysection{Key Algorithms and Concepts}\label{md_README_autotoc_md14}
+\hypertarget{md_README_autotoc_md15}{}\doxysubsection{Bipartite Graph Properties}\label{md_README_autotoc_md15}
+\hypertarget{md_README_autotoc_md16}{}\doxysubsubsection{Graph Structure Validation}\label{md_README_autotoc_md16}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// In a bipartite graph, edges only exist between different node types}}
+\DoxyCodeLine{\textcolor{keywordtype}{bool} is\_valid\_bipartite(\mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\_inf}}* nodes, \textcolor{keywordtype}{int} dim) \{}
+\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < dim; i++) \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (nodes[i].tipo == \textcolor{charliteral}{'U'}) \{  \textcolor{comment}{// User nodes}}
+\DoxyCodeLine{            \mbox{\hyperlink{structadj__node}{adj\_list}} current = get\_adjlist(g, i + 1);}
+\DoxyCodeLine{            \textcolor{keywordflow}{while} (current != NULL) \{}
+\DoxyCodeLine{                \textcolor{keywordtype}{int} target = get\_adjnode(current) -\/ 1;}
+\DoxyCodeLine{                \textcolor{keywordflow}{if} (nodes[target].tipo != \textcolor{charliteral}{'P'}) \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \textcolor{comment}{// Must connect to product}}
+\DoxyCodeLine{                current = get\_nextadj(current);}
+\DoxyCodeLine{            \}}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md17}{}\doxysubsubsection{Rating Distribution Analysis}\label{md_README_autotoc_md17}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void} analyze\_rating\_distribution(\mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\_inf}}* nodes, \textcolor{keywordtype}{int} dim) \{}
+\DoxyCodeLine{    \textcolor{keywordtype}{int} rating\_counts[6] = \{0\}; \textcolor{comment}{// Index 0 unused, 1-\/5 for star ratings}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < dim; i++) \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (nodes[i].tipo == \textcolor{charliteral}{'U'}) \{}
+\DoxyCodeLine{            \mbox{\hyperlink{structadj__node}{adj\_list}} current = get\_adjlist(g, i + 1);}
+\DoxyCodeLine{            \textcolor{keywordflow}{while} (current != NULL) \{}
+\DoxyCodeLine{                \textcolor{keywordtype}{int} rating = (int)get\_adjweight(current);}
+\DoxyCodeLine{                rating\_counts[rating]++;}
+\DoxyCodeLine{                current = get\_nextadj(current);}
+\DoxyCodeLine{            \}}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 1; i <= 5; i++) \{}
+\DoxyCodeLine{        cout << i << \textcolor{stringliteral}{"{} stars: "{}} << rating\_counts[i] << \textcolor{stringliteral}{"{} ratings"{}} << endl;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md18}{}\doxysubsection{Collaborative Filtering Implementation}\label{md_README_autotoc_md18}
+\hypertarget{md_README_autotoc_md19}{}\doxysubsubsection{Find Similar Users}\label{md_README_autotoc_md19}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{vector<int> find\_similar\_users(\textcolor{keywordtype}{int} user\_id, \mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\_inf}}* nodes, \textcolor{keywordtype}{int} dim) \{}
+\DoxyCodeLine{    vector<int> similar\_users;}
+\DoxyCodeLine{    \mbox{\hyperlink{structadj__node}{adj\_list}} user\_ratings = get\_adjlist(g, user\_id);}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{comment}{// For each other user, calculate similarity}}
+\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < dim; i++) \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (nodes[i].tipo == \textcolor{charliteral}{'U'} \&\& i + 1 != user\_id) \{}
+\DoxyCodeLine{            \textcolor{keywordtype}{int} common\_products = 0;}
+\DoxyCodeLine{            \textcolor{keywordtype}{int} similar\_ratings = 0;}
+\DoxyCodeLine{            }
+\DoxyCodeLine{            \textcolor{comment}{// Compare ratings with current user}}
+\DoxyCodeLine{            \mbox{\hyperlink{structadj__node}{adj\_list}} other\_ratings = get\_adjlist(g, i + 1);}
+\DoxyCodeLine{            \textcolor{comment}{// Implementation of similarity calculation...}}
+\DoxyCodeLine{            }
+\DoxyCodeLine{            \textcolor{keywordflow}{if} (similarity\_score > threshold) \{}
+\DoxyCodeLine{                similar\_users.push\_back(i + 1);}
+\DoxyCodeLine{            \}}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} similar\_users;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md20}{}\doxysubsubsection{Product Recommendation Score}\label{md_README_autotoc_md20}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{float} calculate\_recommendation\_score(\textcolor{keywordtype}{int} user\_id, \textcolor{keywordtype}{int} product\_id, }
+\DoxyCodeLine{                                   \mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\_inf}}* nodes, \textcolor{keywordtype}{int} dim) \{}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} score = 0;}
+\DoxyCodeLine{    \textcolor{keywordtype}{int} count = 0;}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{comment}{// Find users who rated this product}}
+\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < dim; i++) \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (nodes[i].tipo == \textcolor{charliteral}{'U'} \&\& i + 1 != user\_id) \{}
+\DoxyCodeLine{            \mbox{\hyperlink{structadj__node}{adj\_list}} ratings = get\_adjlist(g, i + 1);}
+\DoxyCodeLine{            \textcolor{keywordflow}{while} (ratings != NULL) \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{if} (get\_adjnode(ratings) == product\_id) \{}
+\DoxyCodeLine{                    \textcolor{comment}{// Weight by user similarity}}
+\DoxyCodeLine{                    \textcolor{keywordtype}{float} similarity = calculate\_user\_similarity(user\_id, i + 1);}
+\DoxyCodeLine{                    score += get\_adjweight(ratings) * similarity;}
+\DoxyCodeLine{                    count++;}
+\DoxyCodeLine{                    \textcolor{keywordflow}{break};}
+\DoxyCodeLine{                \}}
+\DoxyCodeLine{                ratings = get\_nextadj(ratings);}
+\DoxyCodeLine{            \}}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{keywordflow}{return} (count > 0) ? score / count : 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md21}{}\doxysection{Practical Applications}\label{md_README_autotoc_md21}
+\hypertarget{md_README_autotoc_md22}{}\doxysubsection{E-\/commerce Recommendation Systems}\label{md_README_autotoc_md22}
+\hypertarget{md_README_autotoc_md23}{}\doxysubsubsection{Amazon-\/style \char`\"{}\+Customers who bought this also bought\char`\"{}}\label{md_README_autotoc_md23}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void} customers\_also\_bought(\textcolor{keywordtype}{char}* product, \mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\_inf}}* nodes, \textcolor{keywordtype}{int} dim) \{}
+\DoxyCodeLine{    \textcolor{keywordtype}{int} product\_idx = find\_product\_index(product, nodes, dim);}
+\DoxyCodeLine{    \textcolor{keywordflow}{if} (product\_idx == -\/1) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    map<int, int> co\_purchased;}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{comment}{// Find users who rated this product}}
+\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < dim; i++) \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (nodes[i].tipo == \textcolor{charliteral}{'U'}) \{}
+\DoxyCodeLine{            \textcolor{keywordtype}{bool} rated\_target = \textcolor{keyword}{false};}
+\DoxyCodeLine{            \mbox{\hyperlink{structadj__node}{adj\_list}} ratings = get\_adjlist(g, i + 1);}
+\DoxyCodeLine{            }
+\DoxyCodeLine{            \textcolor{comment}{// Check if user rated target product}}
+\DoxyCodeLine{            \textcolor{keywordflow}{while} (ratings != NULL) \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{if} (get\_adjnode(ratings) == product\_idx) \{}
+\DoxyCodeLine{                    rated\_target = \textcolor{keyword}{true};}
+\DoxyCodeLine{                    \textcolor{keywordflow}{break};}
+\DoxyCodeLine{                \}}
+\DoxyCodeLine{                ratings = get\_nextadj(ratings);}
+\DoxyCodeLine{            \}}
+\DoxyCodeLine{            }
+\DoxyCodeLine{            \textcolor{comment}{// If yes, count all other products they rated}}
+\DoxyCodeLine{            \textcolor{keywordflow}{if} (rated\_target) \{}
+\DoxyCodeLine{                ratings = get\_adjlist(g, i + 1);}
+\DoxyCodeLine{                \textcolor{keywordflow}{while} (ratings != NULL) \{}
+\DoxyCodeLine{                    \textcolor{keywordtype}{int} other\_product = get\_adjnode(ratings);}
+\DoxyCodeLine{                    \textcolor{keywordflow}{if} (other\_product != product\_idx) \{}
+\DoxyCodeLine{                        co\_purchased[other\_product]++;}
+\DoxyCodeLine{                    \}}
+\DoxyCodeLine{                    ratings = get\_nextadj(ratings);}
+\DoxyCodeLine{                \}}
+\DoxyCodeLine{            \}}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{comment}{// Print most co-\/purchased items}}
+\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto}\& pair : co\_purchased) \{}
+\DoxyCodeLine{        cout << \textcolor{stringliteral}{"{}Also bought: "{}} << nodes[pair.first -\/ 1].descrizione }
+\DoxyCodeLine{             << \textcolor{stringliteral}{"{} ("{}} << pair.second << \textcolor{stringliteral}{"{} times)"{}} << endl;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md24}{}\doxysubsection{Social Network Analysis}\label{md_README_autotoc_md24}
+\hypertarget{md_README_autotoc_md25}{}\doxysubsubsection{User Influence Scoring}\label{md_README_autotoc_md25}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{float} calculate\_user\_influence(\textcolor{keywordtype}{int} user\_id, \mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\_inf}}* nodes, \textcolor{keywordtype}{int} dim) \{}
+\DoxyCodeLine{    \mbox{\hyperlink{structadj__node}{adj\_list}} ratings = get\_adjlist(g, user\_id);}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} total\_ratings = 0;}
+\DoxyCodeLine{    \textcolor{keywordtype}{int} product\_count = 0;}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{keywordflow}{while} (ratings != NULL) \{}
+\DoxyCodeLine{        total\_ratings += get\_adjweight(ratings);}
+\DoxyCodeLine{        product\_count++;}
+\DoxyCodeLine{        ratings = get\_nextadj(ratings);}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{comment}{// Influence = number of products rated * average rating}}
+\DoxyCodeLine{    \textcolor{keywordflow}{return} product\_count * (total\_ratings / product\_count);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md26}{}\doxysubsubsection{Product Popularity Analysis}\label{md_README_autotoc_md26}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{struct }ProductStats \{}
+\DoxyCodeLine{    \textcolor{keywordtype}{string} name;}
+\DoxyCodeLine{    \textcolor{keywordtype}{int} rating\_count;}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} average\_rating;}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} popularity\_score;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{vector<ProductStats> analyze\_product\_popularity(\mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\_inf}}* nodes, \textcolor{keywordtype}{int} dim) \{}
+\DoxyCodeLine{    vector<ProductStats> stats;}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < dim; i++) \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (nodes[i].tipo == \textcolor{charliteral}{'P'}) \{}
+\DoxyCodeLine{            ProductStats ps;}
+\DoxyCodeLine{            ps.name = nodes[i].descrizione;}
+\DoxyCodeLine{            ps.rating\_count = 0;}
+\DoxyCodeLine{            \textcolor{keywordtype}{float} total\_rating = 0;}
+\DoxyCodeLine{            }
+\DoxyCodeLine{            \textcolor{comment}{// Count ratings for this product}}
+\DoxyCodeLine{            \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < dim; j++) \{}
+\DoxyCodeLine{                \textcolor{keywordflow}{if} (nodes[j].tipo == \textcolor{charliteral}{'U'}) \{}
+\DoxyCodeLine{                    \mbox{\hyperlink{structadj__node}{adj\_list}} ratings = get\_adjlist(g, j + 1);}
+\DoxyCodeLine{                    \textcolor{keywordflow}{while} (ratings != NULL) \{}
+\DoxyCodeLine{                        \textcolor{keywordflow}{if} (get\_adjnode(ratings) == i + 1) \{}
+\DoxyCodeLine{                            total\_rating += get\_adjweight(ratings);}
+\DoxyCodeLine{                            ps.rating\_count++;}
+\DoxyCodeLine{                            \textcolor{keywordflow}{break};}
+\DoxyCodeLine{                        \}}
+\DoxyCodeLine{                        ratings = get\_nextadj(ratings);}
+\DoxyCodeLine{                    \}}
+\DoxyCodeLine{                \}}
+\DoxyCodeLine{            \}}
+\DoxyCodeLine{            }
+\DoxyCodeLine{            ps.average\_rating = (ps.rating\_count > 0) ? total\_rating / ps.rating\_count : 0;}
+\DoxyCodeLine{            ps.popularity\_score = ps.rating\_count * ps.average\_rating;}
+\DoxyCodeLine{            stats.push\_back(ps);}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{keywordflow}{return} stats;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md27}{}\doxysubsection{Data Mining Applications}\label{md_README_autotoc_md27}
+\hypertarget{md_README_autotoc_md28}{}\doxysubsubsection{Rating Pattern Analysis}\label{md_README_autotoc_md28}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void} analyze\_rating\_patterns(\mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\_inf}}* nodes, \textcolor{keywordtype}{int} dim) \{}
+\DoxyCodeLine{    cout << \textcolor{stringliteral}{"{}=== Rating Pattern Analysis ==="{}} << endl;}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{comment}{// User rating behavior}}
+\DoxyCodeLine{    \textcolor{keywordtype}{int} user\_types[4] = \{0\}; \textcolor{comment}{// harsh, average, generous, minimal}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < dim; i++) \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (nodes[i].tipo == \textcolor{charliteral}{'U'}) \{}
+\DoxyCodeLine{            \textcolor{keywordtype}{float} avg = \mbox{\hyperlink{compito_8cc_a7a535c5080f4f27d2112375572146663}{media\_utente}}(nodes[i].descrizione, g, nodes, dim);}
+\DoxyCodeLine{            \textcolor{keywordflow}{if} (avg < 2.5) user\_types[0]++; \textcolor{comment}{// harsh}}
+\DoxyCodeLine{            \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (avg < 3.5) user\_types[1]++; \textcolor{comment}{// average}}
+\DoxyCodeLine{            \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (avg < 4.5) user\_types[2]++; \textcolor{comment}{// generous}}
+\DoxyCodeLine{            \textcolor{keywordflow}{else} user\_types[3]++; \textcolor{comment}{// very generous}}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    cout << \textcolor{stringliteral}{"{}Harsh critics: "{}} << user\_types[0] << endl;}
+\DoxyCodeLine{    cout << \textcolor{stringliteral}{"{}Average raters: "{}} << user\_types[1] << endl;}
+\DoxyCodeLine{    cout << \textcolor{stringliteral}{"{}Generous raters: "{}} << user\_types[2] << endl;}
+\DoxyCodeLine{    cout << \textcolor{stringliteral}{"{}Very generous: "{}} << user\_types[3] << endl;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md29}{}\doxysection{Build and Execution}\label{md_README_autotoc_md29}
+\hypertarget{md_README_autotoc_md30}{}\doxysubsection{Compilation}\label{md_README_autotoc_md30}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make          \# Compile the project}
+\DoxyCodeLine{make clean    \# Clean build files}
+\DoxyCodeLine{make doc      \# Generate documentation}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md31}{}\doxysubsection{Program Execution}\label{md_README_autotoc_md31}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./main}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md32}{}\doxysubsection{Expected Output}\label{md_README_autotoc_md32}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=== Stampa valutazioni per utente ===}
+\DoxyCodeLine{Paolo valuta 2 Gioco}
+\DoxyCodeLine{Paolo valuta 5 Ciabatta}
+\DoxyCodeLine{Giovanna valuta 4 Scatola}
+\DoxyCodeLine{Giovanna valuta 3 Gioco}
+\DoxyCodeLine{Carla valuta 5 Scatola}
+\DoxyCodeLine{Pino valuta 3 Gioco}
+\DoxyCodeLine{}
+\DoxyCodeLine{Inserisci account per calcolare media utente: Paolo}
+\DoxyCodeLine{3.5}
+\DoxyCodeLine{}
+\DoxyCodeLine{Inserisci account per suggerimenti: Pino}
+\DoxyCodeLine{Inserisci prodotto valutato: Gioco}
+\DoxyCodeLine{Suggerimento: Scatola}
+\DoxyCodeLine{}
+\DoxyCodeLine{Inserisci prodotto per calcolare media: Scatola}
+\DoxyCodeLine{4.5}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md33}{}\doxysection{File Structure}\label{md_README_autotoc_md33}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{prova\_grafi\_250305/}
+\DoxyCodeLine{├── compito.cc         \# Main implementation}
+\DoxyCodeLine{├── grafo.cc          \# Graph data structure implementation}
+\DoxyCodeLine{├── grafo.h           \# Graph header file}
+\DoxyCodeLine{├── tipo.cc           \# Node type implementation}
+\DoxyCodeLine{├── tipo.h            \# Node type header}
+\DoxyCodeLine{├── Makefile          \# Build configuration}
+\DoxyCodeLine{├── Doxyfile          \# Documentation configuration}
+\DoxyCodeLine{├── nodi.txt          \# Node data file}
+\DoxyCodeLine{├── valutazioni.txt   \# Rating data file}
+\DoxyCodeLine{└── README.md         \# This documentation}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md34}{}\doxysection{Advanced Concepts for Future Extensions}\label{md_README_autotoc_md34}
+\hypertarget{md_README_autotoc_md35}{}\doxysubsection{Performance Optimizations}\label{md_README_autotoc_md35}
+\hypertarget{md_README_autotoc_md36}{}\doxysubsubsection{Indexed Access}\label{md_README_autotoc_md36}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class }BipartiteGraph \{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{    unordered\_map<string, int> user\_index;}
+\DoxyCodeLine{    unordered\_map<string, int> product\_index;}
+\DoxyCodeLine{    }
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{    \textcolor{keywordtype}{void} build\_indices(\mbox{\hyperlink{structtipo__inf}{tipo\_inf}}* nodes, \textcolor{keywordtype}{int} dim) \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < dim; i++) \{}
+\DoxyCodeLine{            \textcolor{keywordflow}{if} (nodes[i].tipo == \textcolor{charliteral}{'U'}) \{}
+\DoxyCodeLine{                user\_index[nodes[i].descrizione] = i + 1;}
+\DoxyCodeLine{            \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{                product\_index[nodes[i].descrizione] = i + 1;}
+\DoxyCodeLine{            \}}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{keywordtype}{int} find\_user\_fast(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& name) \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} user\_index.count(name) ? user\_index[name] : -\/1;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md37}{}\doxysubsubsection{Caching System}\label{md_README_autotoc_md37}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class }RatingCache \{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{    unordered\_map<string, float> user\_averages;}
+\DoxyCodeLine{    unordered\_map<string, float> product\_averages;}
+\DoxyCodeLine{    }
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} get\_user\_average(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& user, \textcolor{keywordtype}{bool} use\_cache = \textcolor{keyword}{true}) \{}
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (use\_cache \&\& user\_averages.count(user)) \{}
+\DoxyCodeLine{            \textcolor{keywordflow}{return} user\_averages[user];}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{        }
+\DoxyCodeLine{        \textcolor{keywordtype}{float} avg = calculate\_user\_average(user);}
+\DoxyCodeLine{        user\_averages[user] = avg;}
+\DoxyCodeLine{        \textcolor{keywordflow}{return} avg;}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md38}{}\doxysubsection{Machine Learning Integration}\label{md_README_autotoc_md38}
+\hypertarget{md_README_autotoc_md39}{}\doxysubsubsection{Rating Prediction}\label{md_README_autotoc_md39}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{float} predict\_rating(\textcolor{keywordtype}{int} user\_id, \textcolor{keywordtype}{int} product\_id, \mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\_inf}}* nodes, \textcolor{keywordtype}{int} dim) \{}
+\DoxyCodeLine{    \textcolor{comment}{// Collaborative filtering prediction}}
+\DoxyCodeLine{    vector<int> similar\_users = find\_similar\_users(user\_id, g, nodes, dim);}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{keywordtype}{float} weighted\_sum = 0;}
+\DoxyCodeLine{    \textcolor{keywordtype}{float} weight\_sum = 0;}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} similar\_user : similar\_users) \{}
+\DoxyCodeLine{        \textcolor{keywordtype}{float} similarity = calculate\_similarity(user\_id, similar\_user);}
+\DoxyCodeLine{        \textcolor{keywordtype}{float} rating = get\_user\_rating\_for\_product(similar\_user, product\_id);}
+\DoxyCodeLine{        }
+\DoxyCodeLine{        \textcolor{keywordflow}{if} (rating > 0) \{}
+\DoxyCodeLine{            weighted\_sum += similarity * rating;}
+\DoxyCodeLine{            weight\_sum += similarity;}
+\DoxyCodeLine{        \}}
+\DoxyCodeLine{    \}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{keywordflow}{return} (weight\_sum > 0) ? weighted\_sum / weight\_sum : 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md40}{}\doxysubsection{Scalability Considerations}\label{md_README_autotoc_md40}
+\hypertarget{md_README_autotoc_md41}{}\doxysubsubsection{Memory Management}\label{md_README_autotoc_md41}
+
+\begin{DoxyItemize}
+\item {\bfseries{Large Datasets}}\+: Consider using sparse matrix representations
+\item {\bfseries{Streaming Data}}\+: Implement incremental graph updates
+\item {\bfseries{Distributed Systems}}\+: Partition graph by user or product clusters
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md42}{}\doxysubsubsection{Time Complexity Analysis}\label{md_README_autotoc_md42}
+
+\begin{DoxyItemize}
+\item {\bfseries{User Average}}\+: O(degree(user)) = O(products\+\_\+rated\+\_\+by\+\_\+user)
+\item {\bfseries{Product Average}}\+: O(\+V) where V is number of users
+\item {\bfseries{Recommendations}}\+: O(V²) in worst case for similarity calculations
+\item {\bfseries{Graph Traversal}}\+: O(V + E) for complete analysis
+\end{DoxyItemize}
+
+This lab demonstrates fundamental concepts in graph-\/based recommendation systems, providing a foundation for understanding more complex algorithms used in modern e-\/commerce and social media platforms.\hypertarget{md_README_autotoc_md43}{}\doxysection{Conceptual Connections to Other Labs}\label{md_README_autotoc_md43}
+\hypertarget{md_README_autotoc_md44}{}\doxysubsection{Related Data Structures}\label{md_README_autotoc_md44}
+
+\begin{DoxyItemize}
+\item {\bfseries{Lab 190627}}\+: Geographic POI graphs -\/ similar graph traversal concepts
+\item {\bfseries{Lab 180719}}\+: Social network graphs -\/ user relationship modeling
+\item {\bfseries{Lab 240703}}\+: BST hotel ratings -\/ single-\/criterion rating systems
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md45}{}\doxysubsection{Algorithmic Patterns}\label{md_README_autotoc_md45}
+
+\begin{DoxyItemize}
+\item {\bfseries{Graph Traversal}}\+: Similar to social network analysis in Lab 180719
+\item {\bfseries{Rating Aggregation}}\+: Related to BST range queries in Lab 240703
+\item {\bfseries{Recommendation Logic}}\+: Collaborative filtering principles
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md46}{}\doxysubsection{Real-\/\+World Applications Bridge}\label{md_README_autotoc_md46}
+
+\begin{DoxyItemize}
+\item {\bfseries{E-\/commerce}}\+: Product recommendation engines
+\item {\bfseries{Social Media}}\+: Content and friend recommendations
+\item {\bfseries{Entertainment}}\+: Movie, music, and content suggestions
+\item {\bfseries{Business Intelligence}}\+: Customer behavior analysis
+\end{DoxyItemize}
+
+This bipartite graph implementation provides practical experience with recommendation systems that power modern digital platforms, making abstract graph theory concepts concrete and immediately applicable to real-\/world software development. 

@@ -1,0 +1,183 @@
+\hypertarget{compito_8cc}{}\doxysection{compito.\+cc File Reference}
+\label{compito_8cc}\index{compito.cc@{compito.cc}}
+
+
+Implementation of bipartite graph for product rating system.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include \char`\"{}grafo.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}tipo.\+h\char`\"{}}\newline
+Include dependency graph for compito.\+cc\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}} $\ast$ \mbox{\hyperlink{compito_8cc_a34e66f1d50c07f0a9bf48f93c6dc148c}{crea\+Nodi}} (int \&n)
+\begin{DoxyCompactList}\small\item\em Creates and loads node information from nodi.\+txt file. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{compito_8cc_add7b6766005b4b14bb8b694892859d52}{find\+Node\+By\+Description}} (\mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}} $\ast$nodes, int dim, const char $\ast$desc)
+\begin{DoxyCompactList}\small\item\em Finds node index by description. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{compito_8cc_ac8b1998155811171afd53e277e5b9308}{stampa}} (\mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}} $\ast$nodes, int dim)
+\begin{DoxyCompactList}\small\item\em Print ratings for each user. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{compito_8cc_a7a535c5080f4f27d2112375572146663}{media\+\_\+utente}} (char $\ast$account, \mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}} $\ast$nodes, int dim)
+\begin{DoxyCompactList}\small\item\em Calculate average rating given by a specific user. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{compito_8cc_aee873fb6c1ff4d51b860ea149122a2c4}{media\+\_\+prod}} (char $\ast$prod, \mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}} $\ast$nodes, int dim)
+\begin{DoxyCompactList}\small\item\em Calculate average rating of a specific product. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{compito_8cc_a313858710a6084bffae10614df76c585}{suggerisci}} (char $\ast$account, char $\ast$prod, \mbox{\hyperlink{structgraph}{graph}} g, \mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}} $\ast$nodes, int dim)
+\begin{DoxyCompactList}\small\item\em Suggest products to a user based on similar ratings. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{compito_8cc_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Main function -\/ orchestrates the entire program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of bipartite graph for product rating system. 
+
+This program implements a bipartite graph system for managing user ratings of products. Users and products are represented as nodes, and edges represent ratings (1-\/5 stars) from users to products. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{compito_8cc_a34e66f1d50c07f0a9bf48f93c6dc148c}\label{compito_8cc_a34e66f1d50c07f0a9bf48f93c6dc148c}} 
+\index{compito.cc@{compito.cc}!creaNodi@{creaNodi}}
+\index{creaNodi@{creaNodi}!compito.cc@{compito.cc}}
+\doxysubsubsection{\texorpdfstring{creaNodi()}{creaNodi()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}}$\ast$ crea\+Nodi (\begin{DoxyParamCaption}\item[{int \&}]{n }\end{DoxyParamCaption})}
+
+
+
+Creates and loads node information from nodi.\+txt file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & Reference to store the number of nodes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to dynamically allocated array of \mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}} structures 
+\end{DoxyReturn}
+\mbox{\Hypertarget{compito_8cc_add7b6766005b4b14bb8b694892859d52}\label{compito_8cc_add7b6766005b4b14bb8b694892859d52}} 
+\index{compito.cc@{compito.cc}!findNodeByDescription@{findNodeByDescription}}
+\index{findNodeByDescription@{findNodeByDescription}!compito.cc@{compito.cc}}
+\doxysubsubsection{\texorpdfstring{findNodeByDescription()}{findNodeByDescription()}}
+{\footnotesize\ttfamily int find\+Node\+By\+Description (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}} $\ast$}]{nodes,  }\item[{int}]{dim,  }\item[{const char $\ast$}]{desc }\end{DoxyParamCaption})}
+
+
+
+Finds node index by description. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodes} & Array of nodes \\
+\hline
+{\em dim} & Number of nodes \\
+\hline
+{\em desc} & Description to search for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of the node, -\/1 if not found 
+\end{DoxyReturn}
+\mbox{\Hypertarget{compito_8cc_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{compito_8cc_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{compito.cc@{compito.cc}!main@{main}}
+\index{main@{main}!compito.cc@{compito.cc}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Main function -\/ orchestrates the entire program. 
+
+\begin{DoxyReturn}{Returns}
+0 on success 
+\end{DoxyReturn}
+\mbox{\Hypertarget{compito_8cc_aee873fb6c1ff4d51b860ea149122a2c4}\label{compito_8cc_aee873fb6c1ff4d51b860ea149122a2c4}} 
+\index{compito.cc@{compito.cc}!media\_prod@{media\_prod}}
+\index{media\_prod@{media\_prod}!compito.cc@{compito.cc}}
+\doxysubsubsection{\texorpdfstring{media\_prod()}{media\_prod()}}
+{\footnotesize\ttfamily float media\+\_\+prod (\begin{DoxyParamCaption}\item[{char $\ast$}]{prod,  }\item[{\mbox{\hyperlink{structgraph}{graph}}}]{g,  }\item[{\mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}} $\ast$}]{nodes,  }\item[{int}]{dim }\end{DoxyParamCaption})}
+
+
+
+Calculate average rating of a specific product. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em prod} & Product name \\
+\hline
+{\em g} & Graph containing the ratings \\
+\hline
+{\em nodes} & Array of node information \\
+\hline
+{\em dim} & Number of nodes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Average rating, -\/1 if product not found 
+\end{DoxyReturn}
+\mbox{\Hypertarget{compito_8cc_a7a535c5080f4f27d2112375572146663}\label{compito_8cc_a7a535c5080f4f27d2112375572146663}} 
+\index{compito.cc@{compito.cc}!media\_utente@{media\_utente}}
+\index{media\_utente@{media\_utente}!compito.cc@{compito.cc}}
+\doxysubsubsection{\texorpdfstring{media\_utente()}{media\_utente()}}
+{\footnotesize\ttfamily float media\+\_\+utente (\begin{DoxyParamCaption}\item[{char $\ast$}]{account,  }\item[{\mbox{\hyperlink{structgraph}{graph}}}]{g,  }\item[{\mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}} $\ast$}]{nodes,  }\item[{int}]{dim }\end{DoxyParamCaption})}
+
+
+
+Calculate average rating given by a specific user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em account} & User account name \\
+\hline
+{\em g} & Graph containing the ratings \\
+\hline
+{\em nodes} & Array of node information \\
+\hline
+{\em dim} & Number of nodes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Average rating, -\/1 if user not found 
+\end{DoxyReturn}
+\mbox{\Hypertarget{compito_8cc_ac8b1998155811171afd53e277e5b9308}\label{compito_8cc_ac8b1998155811171afd53e277e5b9308}} 
+\index{compito.cc@{compito.cc}!stampa@{stampa}}
+\index{stampa@{stampa}!compito.cc@{compito.cc}}
+\doxysubsubsection{\texorpdfstring{stampa()}{stampa()}}
+{\footnotesize\ttfamily void stampa (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgraph}{graph}}}]{g,  }\item[{\mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}} $\ast$}]{nodes,  }\item[{int}]{dim }\end{DoxyParamCaption})}
+
+
+
+Print ratings for each user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & Graph containing the ratings \\
+\hline
+{\em nodes} & Array of node information \\
+\hline
+{\em dim} & Number of nodes \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{compito_8cc_a313858710a6084bffae10614df76c585}\label{compito_8cc_a313858710a6084bffae10614df76c585}} 
+\index{compito.cc@{compito.cc}!suggerisci@{suggerisci}}
+\index{suggerisci@{suggerisci}!compito.cc@{compito.cc}}
+\doxysubsubsection{\texorpdfstring{suggerisci()}{suggerisci()}}
+{\footnotesize\ttfamily void suggerisci (\begin{DoxyParamCaption}\item[{char $\ast$}]{account,  }\item[{char $\ast$}]{prod,  }\item[{\mbox{\hyperlink{structgraph}{graph}}}]{g,  }\item[{\mbox{\hyperlink{structtipo__inf}{tipo\+\_\+inf}} $\ast$}]{nodes,  }\item[{int}]{dim }\end{DoxyParamCaption})}
+
+
+
+Suggest products to a user based on similar ratings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em account} & User account name \\
+\hline
+{\em prod} & Product that the user has rated \\
+\hline
+{\em g} & Graph containing the ratings \\
+\hline
+{\em nodes} & Array of node information \\
+\hline
+{\em dim} & Number of nodes \\
+\hline
+\end{DoxyParams}
