@@ -1,3 +1,5 @@
+#include "tipo.h"
+
 typedef int tipo_key;
 
 struct bnode {
